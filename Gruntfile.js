@@ -110,6 +110,24 @@ module.exports = function(grunt) {
       rebuild: false,
     },
 
+    'sftp-deploy': {
+      build: {
+        auth: {
+          host: 'shelvar.com',
+	  port: 22,
+	  authKey: 'privateKey'
+	},
+        cache: 'sftpCache.json',
+        src: '/Users/brinkmwj/ldjam/ld38-game/build',
+        dest: '/var/www/html/ld38/play',
+        exclusions: [],
+        serverSep: '/',
+        localSep: '/',
+        concurrency: 4,
+        progress: true
+      }
+    },
+
     asar: {
       dist: {
         cwd: 'build',
@@ -170,6 +188,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-download-electron');
   grunt.loadNpmTasks('grunt-asar');
+  grunt.loadNpmTasks('grunt-sftp-deploy');
 
   // Custom Tasks
   grunt.loadTasks('tasks');
@@ -182,6 +201,7 @@ module.exports = function(grunt) {
     'copy',
     'processhtml',
     'clean:app',
+    'sftp-deploy',
   ]);
   grunt.registerTask('dist', ['default', 'download-electron', 'asar']);
   grunt.registerTask('serve', ['resources', 'connect', 'watch']);
