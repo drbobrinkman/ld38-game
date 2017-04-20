@@ -2,6 +2,8 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
+    gitinfo: {},
+
     concat: {
       dist: {
         src: [
@@ -117,9 +119,8 @@ module.exports = function(grunt) {
 	  port: 22,
 	  authKey: 'privateKey'
 	},
-        cache: 'sftpCache.json',
         src: '/Users/brinkmwj/ldjam/ld38-game/build',
-        dest: '/var/www/html/ld38/play',
+        dest: ('<%= gitinfo.local.branch.current.name %>' == "master" ? '/var/www/html/ld38/play' : '/var/www/html/ld38/test'),
         exclusions: [],
         serverSep: '/',
         localSep: '/',
@@ -189,6 +190,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-download-electron');
   grunt.loadNpmTasks('grunt-asar');
   grunt.loadNpmTasks('grunt-sftp-deploy');
+  grunt.loadNpmTasks('grunt-gitinfo');
 
   // Custom Tasks
   grunt.loadTasks('tasks');
