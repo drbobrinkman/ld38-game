@@ -3,5 +3,5 @@ bin
 build
 .DS_Store
 node_modules/
-sftpCache.json
+sftpCache*.json
 .ftppass

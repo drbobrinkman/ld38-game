@@ -1,9 +1,7 @@
 module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-
-    gitinfo: {},
-
+    
     concat: {
       dist: {
         src: [
@@ -113,22 +111,37 @@ module.exports = function(grunt) {
     },
 
     'sftp-deploy': {
-      build: {
+      master: {
         auth: {
           host: 'shelvar.com',
 	  port: 22,
 	  authKey: 'privateKey'
 	},
+	cache: 'sftpCacheProd.json',
         src: '/Users/brinkmwj/ldjam/ld38-game/build',
-        dest: ('<%= gitinfo.local.branch.current.name %>' == "master" ? '/var/www/html/ld38/play' : '/var/www/html/ld38/test'),
+        dest: "/var/www/html/ld38/play",
         exclusions: [],
         serverSep: '/',
         localSep: '/',
         concurrency: 4,
         progress: true
-      }
+      },
+      dev: {
+        auth: {
+          host: 'shelvar.com',
+	  port: 22,
+	  authKey: 'privateKey'
+	},
+        cache: 'sftpCacheDev.json',
+        src: '/Users/brinkmwj/ldjam/ld38-game/build',
+        dest: "/var/www/html/ld38/test",
+        exclusions: [],
+        serverSep: '/',
+        localSep: '/',
+        concurrency: 4,
+        progress: true
+      },
     },
-
     asar: {
       dist: {
         cwd: 'build',
@@ -190,10 +203,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-download-electron');
   grunt.loadNpmTasks('grunt-asar');
   grunt.loadNpmTasks('grunt-sftp-deploy');
-  grunt.loadNpmTasks('grunt-gitinfo');
 
   // Custom Tasks
   grunt.loadTasks('tasks');
+  var branch = grunt.option('branch') || 'dev';
 
   grunt.registerTask('default', [
     'resources',
@@ -203,7 +216,7 @@ module.exports = function(grunt) {
     'copy',
     'processhtml',
     'clean:app',
-    'sftp-deploy',
+    'sftp-deploy:' + branch,
   ]);
   grunt.registerTask('dist', ['default', 'download-electron', 'asar']);
   grunt.registerTask('serve', ['resources', 'connect', 'watch']);
