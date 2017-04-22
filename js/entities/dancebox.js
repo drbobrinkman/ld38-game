@@ -21,17 +21,30 @@
 	 dbSprite.pos.x = width/(2*scaleF);
 	 dbSprite.pos.y = height/(2*scaleF);
 
+	 me.game.pointers = new Object(); //Will use as associative array to hold
+	 // info about status of pointers
+	 //TODO: Tried to use this.pointers but it didn't work. Not sure why.
+	 // investiage someday
+
 	 //Subscribe to pointer events
-	 this.pointerDown= me.event.subscribe("pointerdown", function (event) {
-	         console.log(event.pointerId, event.gameX, event.gameY); // etc ...
-	 });
-	 this.pointerUp= me.event.subscribe("pointerup", function (event) {
-	         console.log(event.pointerId, event.gameX, event.gameY); // etc ...
-	 });
+	 this.pointerDown= me.event.subscribe("pointerdown", this.handleDown);
+	 this.pointerUp= me.event.subscribe("pointerup", this.handleUp);
 
 	 this.phraseStartTime = me.timer.getTime();
 	 this.phraseCounts = 12; //intro is 4 bars
 	 me.audio.play("Intro1");
+     },
+
+     handleDown : function(e) {
+	me.game.pointers[e.pointerId] = e;
+  	console.log(Object.keys(me.game.pointers).length);
+     },
+
+     handleUp : function(e) {
+	if(me.game.pointers.hasOwnProperty(e.pointerId)){
+	    delete me.game.pointers[e.pointerId];
+	}
+  	console.log(Object.keys(me.game.pointers).length);
      },
 
      draw : function(renderer) {
