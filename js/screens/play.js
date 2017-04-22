@@ -10,6 +10,10 @@ game.PlayScreen = me.ScreenObject.extend({
         me.audio.playTrack("MainBoxStep");
 
 	me.game.world.addChild(new me.ColorLayer("background", "#00003f"), 0);
+	
+	var ssize = me.game.viewport.width / 3;
+	me.game.world.addChild(new game.DanceBox(me.game.viewport.width/2 - ssize/2, 
+						 me.game.viewport.height/2 - ssize/2, ssize, ssize));
 
 	// Add our HUD to the game world, add it last so that this is on top of the rest.
         // Can also be forced by specifying a "Infinity" z value to the addChild function.
