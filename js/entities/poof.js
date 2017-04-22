@@ -2,28 +2,28 @@
  * Poof effect
  */
 
- game.Poof = me.Renderable.extend({
+ game.Poof = me.Sprite.extend({
      /**
       * constructor
       */
-     init : function (x, y, width, height) {
+     init : function (x, y, good, implode) {
 	 // call the constructor
-	 this._super(me.Renderable, 'init', [x, y , width, height]);
-     	 this.createTime = me.timer.getTime();
-	 this.lifeTime = 1000; //in ms
+	 this._super(me.Sprite, 'init', [x, y , {image: good ? "poof" : "badpoof", framewidth: 256, frameheight: 256}]);
+	 this.lifeTime = 500; //in ms
+         this.addAnimation("poof", [0, 1, 2, 3, 4, 5, 6], this.lifeTime/6);
+	 this.addAnimation("foop", [5, 4, 3, 2, 1, 0, 6], this.lifeTime/6);
+  	 this.setCurrentAnimation(implode ? "foop" : "poof");
+  	 this.createTime = me.timer.getTime();
      },
 
      draw : function(renderer) {
-	this._super(me.Renderable, 'draw', [renderer]);
-
-	renderer.setColor(new me.Color(255, 255, 255, 1.0 -(me.timer.getTime() - this.createTime)/this.lifeTime));
-	renderer.strokeEllipse(this.pos.x, this.pos.y, this.width, this.height);
+	this._super(me.Sprite, 'draw', [renderer]);
      },
 
      update: function (dt) {
-          this._super(me.Renderable , "update", [dt]);
-	  if(me.timer.getTime() - this.createTime > this.lifeTime){
-	    me.game.DB.removeChild(this);
+          this._super(me.Sprite, "update", [dt]);
+	  if(me.timer.getTime() - this.createTime >= this.lifeTime){
+	    me.game.world.removeChild(this);
 	  }
 	  return true;
      }

@@ -175,8 +175,6 @@
 
      handleDown : function(e) {
 	me.game.pointers[e.pointerId] = e;
-	//TODO: Should be based on resolution, not hard-coded to 20
-	me.game.DB.addChild(new game.Poof(e.gameX-me.game.DB.pos.x, e.gameY-me.game.DB.pos.y, 20, 20));
   	//console.log(Object.keys(me.game.pointers).length);
 	me.game.DB.checkTarget(e,"down");
      },
@@ -209,7 +207,8 @@
 		}
 	    }
 	    if(whichTarget != -1){
-		//TODO: Happy visual effect
+		me.game.world.addChild(new game.Poof(e.gameX, e.gameY, 
+				true, false));
 	    	delete me.game.DB.curPhrase.targets[whichTarget];
 	    }
 	}
