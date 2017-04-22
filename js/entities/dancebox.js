@@ -216,28 +216,6 @@
 
      draw : function(renderer) {
 	this._super(me.Container, 'draw', [renderer]);
-
-	var curCount = (me.timer.getTime() - me.game.DB.phraseStartTime)/me.game.DB.msPerBeat;
-	for(var targnum in me.game.DB.curPhrase.targets){
-	    var targ = me.game.DB.curPhrase.targets[targnum];
-	    var countDiff = Math.abs(curCount - targ.count)/targ.permittedSlop;
-	    if(countDiff <= 1.0){
-		renderer.setColor(new me.Color(255, 255, 255, 1.0 - countDiff));
-		renderer.strokeEllipse(this.targets[targ.targetNum].x, this.targets[targ.targetNum].y, 
-			this.width/8, this.height/8);
-	    }
-	}
-	//Also render the steps from the next stage of the song, assuming success
-	curCount -= me.game.DB.curPhrase.counts;
-	for(var targnum in me.game.DB.song[me.game.DB.curPhrase.onSuccess].targets) {
-	    var targ = me.game.DB.song[me.game.DB.curPhrase.onSuccess].targets[targnum];
-	    var countDiff = Math.abs(curCount - targ.count)/targ.permittedSlop;
-	    if(countDiff <= 1.0){
-		renderer.setColor(new me.Color(255, 255, 255, 1.0 - countDiff));
-		renderer.strokeEllipse(this.targets[targ.targetNum].x, this.targets[targ.targetNum].y, 
-			this.width/8, this.height/8);
-	    }
-	}
      },
 
      update: function (dt) {
@@ -245,19 +223,42 @@
 	  var now = me.timer.getTime();
 
 	  //TODO: If missed a target, make a sad graphic
+	  
+	  
+	  
+	  //This section: Make a tap cue for upcoming steps
+	  var curCount = (me.timer.getTime() - me.game.DB.phraseStartTime)/me.game.DB.msPerBeat;
+	  for(var targnum in me.game.DB.curPhrase.targets){
+	      var targ = me.game.DB.curPhrase.targets[targnum];
+	      var countDiff = curCount - targ.count; //When it goes from < -1 to >= -1 we need to act
+	      if(countDiff >= -1 && countDiff - dt/me.game.DB.msPerBeat < -1){
+	      	me.game.world.addChild(new game.Poof(this.targets[targ.targetNum].x, 
+			    this.targets[targ.targetNum].y, true, true));
+	      }
+	  }
+	  //Also render the steps from the next stage of the song, assuming success
+	  curCount -= me.game.DB.curPhrase.counts;
+	  for(var targnum in me.game.DB.song[me.game.DB.curPhrase.onSuccess].targets) {
+	      var targ = me.game.DB.song[me.game.DB.curPhrase.onSuccess].targets[targnum];
+	      var countDiff = curCount - targ.count; //When it goes from < -1 to >= -1 we need to act
+	      if(countDiff >= -1 && countDiff - dt/me.game.DB.msPerBeat < -1){
+	      	me.game.world.addChild(new game.Poof(this.targets[targ.targetNum].x, 
+			    this.targets[targ.targetNum].y, true, true));
+	      }
+	  }
 
 	  if((now - this.phraseStartTime)/this.msPerBeat >= this.curPhrase.counts){ 
-	      	this.phraseStartTime = now;
-		if(Object.keys(this.curPhrase.targets).length > 0){
-		    //failed
-		    this.danceState = this.curPhrase.onFailure;
-		} else {
-		    //succeeded
-		    this.danceState = this.curPhrase.onSuccess;
-		}
+	      this.phraseStartTime = now;
+	      if(Object.keys(this.curPhrase.targets).length > 0){
+		  //failed
+		  this.danceState = this.curPhrase.onFailure;
+	      } else {
+		  //succeeded
+		  this.danceState = this.curPhrase.onSuccess;
+	      }
 
-		this.curPhrase = JSON.parse(JSON.stringify(this.song[this.danceState]));
-		me.audio.play(this.curPhrase.tune);
+	      this.curPhrase = JSON.parse(JSON.stringify(this.song[this.danceState]));
+	      me.audio.play(this.curPhrase.tune);
 	  }
 	  return true;
      }
