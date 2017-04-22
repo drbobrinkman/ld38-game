@@ -17,6 +17,14 @@ game.PlayScreen = me.ScreenObject.extend({
         // Can also be forced by specifying a "Infinity" z value to the addChild function.
         this.HUD = new game.HUD.Container();
         me.game.world.addChild(this.HUD);
+
+	//Register for pointer events for whole screen, distribute via pubsub
+	me.input.registerPointerEvent("pointerdown", me.game.viewport, function (event) {
+	        me.event.publish("pointerdown", [ event ]);
+	});
+	me.input.registerPointerEvent("pointerup", me.game.viewport, function (event) {
+	        me.event.publish("pointerup", [ event ]);
+	});
     },
 
     /**

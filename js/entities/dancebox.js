@@ -21,6 +21,14 @@
 	 dbSprite.pos.x = width/(2*scaleF);
 	 dbSprite.pos.y = height/(2*scaleF);
 
+	 //Subscribe to pointer events
+	 this.pointerDown= me.event.subscribe("pointerdown", function (event) {
+	         console.log(event.pointerId, event.gameX, event.gameY); // etc ...
+	 });
+	 this.pointerUp= me.event.subscribe("pointerup", function (event) {
+	         console.log(event.pointerId, event.gameX, event.gameY); // etc ...
+	 });
+
 	 this.phraseStartTime = me.timer.getTime();
 	 this.phraseCounts = 12; //intro is 4 bars
 	 me.audio.play("Intro1");
