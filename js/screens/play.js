@@ -6,9 +6,6 @@ game.PlayScreen = me.ScreenObject.extend({
         // reset the score
         game.data.score = 0;
 
-	//Start the soundtrack. TODO: change to the intro music
-        me.audio.playTrack("MainBoxStep");
-
 	me.game.world.addChild(new me.ColorLayer("background", "#00003f"), 0);
 	
 	var ssize = me.game.viewport.width / 3;
@@ -25,9 +22,6 @@ game.PlayScreen = me.ScreenObject.extend({
      *  action to perform when leaving this screen (state change)
      */
     onDestroyEvent: function() {
-	// stop the music
-	me.audio.stopTrack();
-	
 	// remove the HUD from the game world
         me.game.world.removeChild(this.HUD);
     }
