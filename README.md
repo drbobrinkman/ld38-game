@@ -10,4 +10,4 @@ If you want to see what I'm up to, you have some options:
 
 1. Check out the [latest working build](https://ld38.bobrinkman.com/play) on a tablet
 2. Follow my Twitter feed, [@drbobrinkman](https://twitter.com/drbobrinkman)
-3. Watch my live stream on [twitch.tv](https://www.twitch.tv/bobrinkman)
+3. Check my dev streams (not live, sadly) on [twitch.tv](https://www.twitch.tv/bobrinkman)
