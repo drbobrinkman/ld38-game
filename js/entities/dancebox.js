@@ -13,9 +13,7 @@
 	 //This is a total hack because I don't understand scope in Javascript TODO
 	 me.game.DB = this;
 
-    	 //TODO: Remove this, just use target list and time to draw these
-	 this.stepState = 0; //0 is feet together in lower left
-	 this.danceState = 0; //0 is intro, 1 is main song, 2 is gameover
+	 this.danceState = 0; //Tells us which part of the song we are in. 
 	 this.bpm = 90;
 	 this.msPerBeat = 60*1000/this.bpm;
 
@@ -230,11 +228,24 @@
 			this.width/8, this.height/8);
 	    }
 	}
+	//Also render the steps from the next stage of the song, assuming success
+	curCount -= me.game.DB.curPhrase.counts;
+	for(var targnum in me.game.DB.song[me.game.DB.curPhrase.onSuccess].targets) {
+	    var targ = me.game.DB.song[me.game.DB.curPhrase.onSuccess].targets[targnum];
+	    var countDiff = Math.abs(curCount - targ.count)/targ.permittedSlop;
+	    if(countDiff <= 1.0){
+		renderer.setColor(new me.Color(255, 255, 255, 1.0 - countDiff));
+		renderer.strokeEllipse(this.targets[targ.targetNum].x, this.targets[targ.targetNum].y, 
+			this.width/8, this.height/8);
+	    }
+	}
      },
 
      update: function (dt) {
           this._super(me.Container, "update", [dt]);
 	  var now = me.timer.getTime();
+
+	  //TODO: If missed a target, make a sad graphic
 
 	  if((now - this.phraseStartTime)/this.msPerBeat >= this.curPhrase.counts){ 
 	      	this.phraseStartTime = now;
