@@ -208,7 +208,7 @@
 	    }
 	    if(whichTarget != -1){
 		me.game.world.addChild(new game.Poof(e.gameX, e.gameY, 
-				true, false));
+				true));
 	    	delete me.game.DB.curPhrase.targets[whichTarget];
 	    }
 	}
@@ -232,8 +232,9 @@
 	      var targ = me.game.DB.curPhrase.targets[targnum];
 	      var countDiff = curCount - targ.count; //When it goes from < -1 to >= -1 we need to act
 	      if(countDiff >= -1 && countDiff - dt/me.game.DB.msPerBeat < -1){
-	      	me.game.world.addChild(new game.Poof(this.targets[targ.targetNum].x, 
-			    this.targets[targ.targetNum].y, true, true));
+	      	me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
+			    this.targets[targ.targetNum].y,
+			    (targ.permittedSlop - countDiff)*me.game.DB.msPerBeat));
 	      }
 	  }
 	  //Also render the steps from the next stage of the song, assuming success
@@ -242,8 +243,9 @@
 	      var targ = me.game.DB.song[me.game.DB.curPhrase.onSuccess].targets[targnum];
 	      var countDiff = curCount - targ.count; //When it goes from < -1 to >= -1 we need to act
 	      if(countDiff >= -1 && countDiff - dt/me.game.DB.msPerBeat < -1){
-	      	me.game.world.addChild(new game.Poof(this.targets[targ.targetNum].x, 
-			    this.targets[targ.targetNum].y, true, true));
+	      	me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
+			    this.targets[targ.targetNum].y,
+			    (targ.permittedSlop - countDiff)*me.game.DB.msPerBeat));
 	      }
 	  }
 
