@@ -20,6 +20,10 @@
 	 this.addChild(dbSprite);
 	 dbSprite.pos.x = width/(2*scaleF);
 	 dbSprite.pos.y = height/(2*scaleF);
+
+	 this.phraseStartTime = me.timer.getTime();
+	 this.phraseCounts = 12; //intro is 4 bars
+	 me.audio.play("Intro1");
      },
 
      draw : function(renderer) {
@@ -67,6 +71,18 @@
 
      update: function (dt) {
           this._super(me.Container, "update", [dt]);
+	  var now = me.timer.getTime();
+
+	  switch(this.danceState){
+	      case 0:
+	      default:
+	  	if((now - this.phraseStartTime)/this.msPerBeat >= this.phraseCounts){ 
+		    this.phraseStartTime = now;
+		    this.phraseCounts = 12; //intro is 4 bars
+		    me.audio.play("Intro1");
+		}
+		break;
+	  }
 	  return true;
      }
  });
