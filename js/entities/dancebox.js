@@ -11,9 +11,16 @@
 	 // call the constructor
 	 this._super(me.Container, 'init', [x, y , width, height]);
 	 this.stepState = 0;
+	 var dbSprite = new me.Sprite(0, 0, {image: "DanceBox"});
+	 var scaleF = 1.25 * width / dbSprite.width;
+	 dbSprite.scaleV(new me.Vector2d(scaleF, scaleF));
+	 this.addChild(dbSprite);
+	 dbSprite.pos.x = width/(2*scaleF);
+	 dbSprite.pos.y = height/(2*scaleF);
      },
 
      draw : function(renderer) {
+	 this._super(me.Container, 'draw', [renderer]);
 	//debug code. TODO remove it
 	this.stepState = (me.timer.getTime() / 666.667) % 6;
 
