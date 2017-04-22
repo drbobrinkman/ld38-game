@@ -1,10 +1,10 @@
 {
-  "short_name": "melonJS Boilerplate",
-  "name": "My melonJS Boilerplate Game",
+  "short_name": "The Carbon Suite",
+  "name": "The Carbon Suite",
   "orientation": "landscape",
   "developer": {
-    "name": "melonjs",
-    "url": "http://www.melonjs.org"
+    "name": "bobrinkman",
+    "url": "http://bobrinkman.com"
   },
   "start_url": "./index.html",
   "display": "fullscreen",
