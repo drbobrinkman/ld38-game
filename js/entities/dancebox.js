@@ -72,51 +72,99 @@
 	 onFailure: 0, 
 	 targets: [{
 	     		targetNum: 1,
-			count: 1,
+			count: 0,
 			permittedSlop: 0.25,
 		   },{
 		       targetNum: 4,
+		       count: 1,
+		       permittedSlop: 0.25,
+		   },{
+		       targetNum: 2,
 		       count: 2,
 		       permittedSlop: 0.25,
 		   },{
-		       targetNum: 2,
+		       targetNum: 5,
 		       count: 3,
 		       permittedSlop: 0.25,
 		   },{
-		       targetNum: 5,
+		       targetNum: 0,
 		       count: 4,
 		       permittedSlop: 0.25,
 		   },{
-		       targetNum: 0,
+		       targetNum: 3,
 		       count: 5,
 		       permittedSlop: 0.25,
 		   },{
-		       targetNum: 3,
-		       count: 6,
-		       permittedSlop: 0.25,
-		   },{
 	     		targetNum: 1,
-			count: 7,
+			count: 6,
 			permittedSlop: 0.25,
 		   },{
 		       targetNum: 4,
-		       count: 8,
+		       count: 7,
 		       permittedSlop: 0.25,
 		   },{
 		       targetNum: 2,
-		       count: 9,
+		       count: 8,
 		       permittedSlop: 0.25,
 		   },{
 		       targetNum: 5,
-		       count: 10,
+		       count: 9,
 		       permittedSlop: 0.25,
 		   },{
 		       targetNum: 0,
-		       count: 11,
+		       count: 10,
 		       permittedSlop: 0.25,
 		   },{
 		       targetNum: 3,
-		       count: 12,
+		       count: 11,
+		       permittedSlop: 0.25,
+		   },{
+	     		targetNum: 1,
+			count: 12,
+			permittedSlop: 0.25,
+		   },{
+		       targetNum: 4,
+		       count: 13,
+		       permittedSlop: 0.25,
+		   },{
+		       targetNum: 2,
+		       count: 14,
+		       permittedSlop: 0.25,
+		   },{
+		       targetNum: 5,
+		       count: 15,
+		       permittedSlop: 0.25,
+		   },{
+		       targetNum: 0,
+		       count: 16,
+		       permittedSlop: 0.25,
+		   },{
+		       targetNum: 3,
+		       count: 17,
+		       permittedSlop: 0.25,
+		   },{
+	     		targetNum: 1,
+			count: 18,
+			permittedSlop: 0.25,
+		   },{
+		       targetNum: 4,
+		       count: 19,
+		       permittedSlop: 0.25,
+		   },{
+		       targetNum: 2,
+		       count: 20,
+		       permittedSlop: 0.25,
+		   },{
+		       targetNum: 5,
+		       count: 21,
+		       permittedSlop: 0.25,
+		   },{
+		       targetNum: 0,
+		       count: 22,
+		       permittedSlop: 0.25,
+		   },{
+		       targetNum: 3,
+		       count: 23,
 		       permittedSlop: 0.25,
 		   }
 		 ]
