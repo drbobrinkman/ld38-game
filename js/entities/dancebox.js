@@ -71,99 +71,99 @@
 	 targets: [{
 	     		targetNum: 1,
 			count: 0,
-			permittedSlop: 0.25,
+			permittedSlop: 0.5,
 		   },{
 		       targetNum: 4,
 		       count: 1,
-		       permittedSlop: 0.25,
+		       permittedSlop: 0.5,
 		   },{
 		       targetNum: 2,
 		       count: 2,
-		       permittedSlop: 0.25,
+		       permittedSlop: 0.5,
 		   },{
 		       targetNum: 5,
 		       count: 3,
-		       permittedSlop: 0.25,
+		       permittedSlop: 0.5,
 		   },{
 		       targetNum: 0,
 		       count: 4,
-		       permittedSlop: 0.25,
+		       permittedSlop: 0.5,
 		   },{
 		       targetNum: 3,
 		       count: 5,
-		       permittedSlop: 0.25,
+		       permittedSlop: 0.5,
 		   },{
 	     		targetNum: 1,
 			count: 6,
-			permittedSlop: 0.25,
+			permittedSlop: 0.5,
 		   },{
 		       targetNum: 4,
 		       count: 7,
-		       permittedSlop: 0.25,
+		       permittedSlop: 0.5,
 		   },{
 		       targetNum: 2,
 		       count: 8,
-		       permittedSlop: 0.25,
+		       permittedSlop: 0.5,
 		   },{
 		       targetNum: 5,
 		       count: 9,
-		       permittedSlop: 0.25,
+		       permittedSlop: 0.5,
 		   },{
 		       targetNum: 0,
 		       count: 10,
-		       permittedSlop: 0.25,
+		       permittedSlop: 0.5,
 		   },{
 		       targetNum: 3,
 		       count: 11,
-		       permittedSlop: 0.25,
+		       permittedSlop: 0.5,
 		   },{
 	     		targetNum: 1,
 			count: 12,
-			permittedSlop: 0.25,
+			permittedSlop: 0.5,
 		   },{
 		       targetNum: 4,
 		       count: 13,
-		       permittedSlop: 0.25,
+		       permittedSlop: 0.5,
 		   },{
 		       targetNum: 2,
 		       count: 14,
-		       permittedSlop: 0.25,
+		       permittedSlop: 0.5,
 		   },{
 		       targetNum: 5,
 		       count: 15,
-		       permittedSlop: 0.25,
+		       permittedSlop: 0.5,
 		   },{
 		       targetNum: 0,
 		       count: 16,
-		       permittedSlop: 0.25,
+		       permittedSlop: 0.5,
 		   },{
 		       targetNum: 3,
 		       count: 17,
-		       permittedSlop: 0.25,
+		       permittedSlop: 0.5,
 		   },{
 	     		targetNum: 1,
 			count: 18,
-			permittedSlop: 0.25,
+			permittedSlop: 0.5,
 		   },{
 		       targetNum: 4,
 		       count: 19,
-		       permittedSlop: 0.25,
+		       permittedSlop: 0.5,
 		   },{
 		       targetNum: 2,
 		       count: 20,
-		       permittedSlop: 0.25,
+		       permittedSlop: 0.5,
 		   },{
 		       targetNum: 5,
 		       count: 21,
-		       permittedSlop: 0.25,
+		       permittedSlop: 0.5,
 		   },{
 		       targetNum: 0,
 		       count: 22,
-		       permittedSlop: 0.25,
+		       permittedSlop: 0.5,
 		   },{
 		       targetNum: 3,
 		       count: 23,
-		       permittedSlop: 0.25,
+		       permittedSlop: 0.5,
 		   }
 		 ]
      	        }
@@ -199,7 +199,8 @@
 		    me.game.DB.curPhrase.targets[targnum].permittedSlop){
 		    //Okay, time is a match. Now check location
 		    var p = new me.Vector2d(e.gameX, e.gameY);
-		    if(me.game.DB.targets[me.game.DB.curPhrase.targets[targnum].targetNum].distance(p) <= me.game.DB.width/8){
+		    if(me.game.DB.targets[me.game.DB.curPhrase.targets[targnum].targetNum].distance(p) 
+			<= me.game.DB.width/4){
 		    	//The player hit this target
 			whichTarget = targnum;
 			break;
