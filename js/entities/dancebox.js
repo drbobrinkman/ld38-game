@@ -17,6 +17,7 @@
 	 this.danceState = 0; //0 is intro, 1 is main song, 2 is gameover
 	 this.bpm = 90;
 	 this.msPerBeat = 60*1000/this.bpm;
+	 this.introDone = false;
 
          var dbSprite = new me.Sprite(0, 0, {image: "DanceBox"});
 	 var scaleF = 1.25 * width / dbSprite.width;
@@ -34,9 +35,96 @@
 	 this.pointerDown= me.event.subscribe("pointerdown", this.handleDown);
 	 this.pointerUp= me.event.subscribe("pointerup", this.handleUp);
 
+	 this.targets = new Object();
+	 this.targets[0] = new me.Vector2d(me.game.DB.pos.x + me.game.DB.width/8,
+			   	me.game.DB.pos.y + 7*me.game.DB.height/8);
+	 this.targets[1] = new me.Vector2d(me.game.DB.pos.x + me.game.DB.width/8,
+			   	me.game.DB.pos.y + me.game.DB.height/8);
+	 this.targets[2] = new me.Vector2d(me.game.DB.pos.x + 5*me.game.DB.width/8,
+			   	me.game.DB.pos.y + me.game.DB.height/8);
+	 this.targets[3] = new me.Vector2d(me.game.DB.pos.x + 3*me.game.DB.width/8,
+			  	me.game.DB.pos.y + 7*me.game.DB.height/8);
+	 this.targets[4] = new me.Vector2d(me.game.DB.pos.x + 7*me.game.DB.width/8,
+			  	me.game.DB.pos.y + me.game.DB.height/8);
+	 this.targets[5] = new me.Vector2d(me.game.DB.pos.x + 7*me.game.DB.width/8,
+			  	me.game.DB.pos.y + 7*me.game.DB.height/8);
+
 	 this.phraseStartTime = me.timer.getTime();
-	 this.phraseCounts = 12; //intro is 4 bars
-	 me.audio.play("Intro1");
+
+     	 this.song = [{
+	 tune: "Intro1",
+	 counts: 12,
+	 onSuccess: 1,
+	 onFailure: 0,
+	 targets: [{
+			targetNum: 0,	
+	   		count: 0,
+		    	permittedSlop: 12,
+		   },{
+		    	targetNum: 3,
+		    	count: 0,
+		    	permittedSlopt: 12,
+		   }]
+     }, {
+	 tune: "MainBoxStep",
+	 counts: 24,
+	 onSuccess: 1,
+	 onFailure: 0, 
+	 targets: [{
+	     		targetNum: 1,
+			count: 1,
+			permittedSlop: 0.25,
+		   },{
+		       targetNum: 4,
+		       count: 2,
+		       permittedSlop: 0.25,
+		   },{
+		       targetNum: 2,
+		       count: 3,
+		       permittedSlop: 0.25,
+		   },{
+		       targetNum: 5,
+		       count: 4,
+		       permittedSlop: 0.25,
+		   },{
+		       targetNum: 0,
+		       count: 5,
+		       permittedSlop: 0.25,
+		   },{
+		       targetNum: 3,
+		       count: 6,
+		       permittedSlop: 0.25,
+		   },{
+	     		targetNum: 1,
+			count: 7,
+			permittedSlop: 0.25,
+		   },{
+		       targetNum: 4,
+		       count: 8,
+		       permittedSlop: 0.25,
+		   },{
+		       targetNum: 2,
+		       count: 9,
+		       permittedSlop: 0.25,
+		   },{
+		       targetNum: 5,
+		       count: 10,
+		       permittedSlop: 0.25,
+		   },{
+		       targetNum: 0,
+		       count: 11,
+		       permittedSlop: 0.25,
+		   },{
+		       targetNum: 3,
+		       count: 12,
+		       permittedSlop: 0.25,
+		   }
+		 ]
+     	        }
+	      ]
+	//I want a deep copy, and I don't know what I'm doing.
+	this.curPhrase = JSON.parse(JSON.stringify(this.song[this.danceState]));
+	me.audio.play(this.curPhrase.tune);
      },
 
      handleDown : function(e) {
@@ -61,39 +149,10 @@
 	var leftFootState = Math.floor(((this.stepState + 1)%6)/2);
 	var rightFootState = Math.floor(this.stepState/2);
 
-	//Starting position for left food
-	var xl = this.pos.x + this.width/8;
-	var yl = this.pos.y + 7*this.height/8;
-	var xr = this.pos.x + 3*this.width/8;
-	var yr = this.pos.y + 7*this.height/8;
-	switch(leftFootState){
-	    case 0:
-	    default:
-	    	break; //do nothing
-	    case 1:
-		//Left foot in forward position
-		yl -= 3*this.height/4;
-		break;
-	    case 2:
-	    	//left foot in forward/right
-	    	yl -= 3*this.height/4;
-		xl += this.width/2;
-	}
-	switch(rightFootState){
-	    case 0:
-	    default:
-	    	break; //do nothing
-	    case 1:
-		//right foot in forward/right position
-		yr -= 3*this.height/4;
-		xr += this.width/2;
-		break;
-	    case 2:
-	    	//right foot in right/back position
-		xr += this.width/2;
-        }
-	renderer.strokeEllipse(xl, yl, this.width/8, this.height/8);
-	renderer.strokeEllipse(xr, yr, this.width/8, this.height/8);
+	renderer.strokeEllipse(this.targets[leftFootState].x, this.targets[leftFootState].y, 
+		this.width/8, this.height/8);
+	renderer.strokeEllipse(this.targets[rightFootState+3].x, this.targets[rightFootState+3].y, 
+		this.width/8, this.height/8);
      },
 
      update: function (dt) {
@@ -103,12 +162,44 @@
 	  switch(this.danceState){
 	      case 0:
 	      default:
-	  	if((now - this.phraseStartTime)/this.msPerBeat >= this.phraseCounts){ 
-		    this.phraseStartTime = now;
-		    this.phraseCounts = 12; //intro is 4 bars
-		    me.audio.play("Intro1");
-		}
-		break;
+		  //Starting positions for feet
+		  var l = new me.Vector2d(me.game.DB.pos.x + me.game.DB.width/8,
+			  me.game.DB.pos.y + 7*me.game.DB.height/8);
+		  var r = new me.Vector2d(me.game.DB.pos.x + 3*me.game.DB.width/8,
+			  me.game.DB.pos.y + 7*me.game.DB.height/8);
+		  //if pointers are down in roughly the right place, at any
+		  // point during the intro, move on to
+		  // main song
+		  var radius = this.width/16;
+		  var leftokay = false;
+		  var rightokay = false;
+		  for(var prop in me.game.pointers){
+		  	var e = me.game.pointers[prop];
+			var p = new me.Vector2d(e.gameX, e.gameY);
+			if(l.distance(p) < radius){
+			    leftokay = true;
+			}
+			if(r.distance(p) < radius){
+			    rightokay = true;
+			}
+		  }
+		  if(leftokay && rightokay){
+		      this.introDone = true;
+		  }
+
+		  if((now - this.phraseStartTime)/this.msPerBeat >= this.phraseCounts){ 
+		      this.phraseStartTime = now;
+		      if(this.introDone) {
+			  this.danceState = 1;
+			  this.introDone = false;
+			  this.phraseCounts = 24; //main song is 8 bars
+			  me.audio.play("MainBoxStep");
+		      } else {
+			  this.phraseCounts = 12; //intro is 4 bars
+			  me.audio.play("Intro1");
+		      }
+		  }
+		  break;
 	  }
 	  return true;
      }
