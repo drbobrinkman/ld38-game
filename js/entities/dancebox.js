@@ -13,11 +13,11 @@
 	 //This is a total hack because I don't understand scope in Javascript TODO
 	 me.game.DB = this;
 
+    	 //TODO: Remove this, just use target list and time to draw these
 	 this.stepState = 0; //0 is feet together in lower left
 	 this.danceState = 0; //0 is intro, 1 is main song, 2 is gameover
 	 this.bpm = 90;
 	 this.msPerBeat = 60*1000/this.bpm;
-	 this.introDone = false;
 
          var dbSprite = new me.Sprite(0, 0, {image: "DanceBox"});
 	 var scaleF = 1.25 * width / dbSprite.width;
@@ -63,7 +63,7 @@
 		   },{
 		    	targetNum: 3,
 		    	count: 0,
-		    	permittedSlopt: 12,
+		    	permittedSlop: 12,
 		   }]
      }, {
 	 tune: "MainBoxStep",
@@ -132,13 +132,41 @@
 	//TODO: Should be based on resolution, not hard-coded to 20
 	me.game.DB.addChild(new game.Poof(e.gameX-me.game.DB.pos.x, e.gameY-me.game.DB.pos.y, 20, 20));
   	//console.log(Object.keys(me.game.pointers).length);
+	me.game.DB.checkTarget(e,"down");
      },
 
      handleUp : function(e) {
 	if(me.game.pointers.hasOwnProperty(e.pointerId)){
 	    delete me.game.pointers[e.pointerId];
 	}
+	me.game.DB.checkTarget(e,"up");
   	//console.log(Object.keys(me.game.pointers).length);
+     },
+
+     checkTarget : function(e, kind) {
+	if(kind == "down"){
+	    //Check if this even satisfies any targets. Can only satisfy one target
+	    var whichTarget = -1;
+	    var curCount = (me.timer.getTime() - me.game.DB.phraseStartTime)/me.game.DB.msPerBeat;
+	    //For a target to be valid, must touch within appropriate radius and appropriate time
+	    // window
+	    for(var targnum in me.game.DB.curPhrase.targets){
+		if(Math.abs(curCount - me.game.DB.curPhrase.targets[targnum].count) <=
+		    me.game.DB.curPhrase.targets[targnum].permittedSlop){
+		    //Okay, time is a match. Now check location
+		    var p = new me.Vector2d(e.gameX, e.gameY);
+		    if(me.game.DB.targets[me.game.DB.curPhrase.targets[targnum].targetNum].distance(p) <= me.game.DB.width/16){
+		    	//The player hit this target
+			whichTarget = targnum;
+			break;
+		    }
+		}
+	    }
+	    if(whichTarget != -1){
+		//TODO: Happy visual effect
+	    	delete me.game.DB.curPhrase.targets[whichTarget];
+	    }
+	}
      },
 
      draw : function(renderer) {
@@ -159,47 +187,18 @@
           this._super(me.Container, "update", [dt]);
 	  var now = me.timer.getTime();
 
-	  switch(this.danceState){
-	      case 0:
-	      default:
-		  //Starting positions for feet
-		  var l = new me.Vector2d(me.game.DB.pos.x + me.game.DB.width/8,
-			  me.game.DB.pos.y + 7*me.game.DB.height/8);
-		  var r = new me.Vector2d(me.game.DB.pos.x + 3*me.game.DB.width/8,
-			  me.game.DB.pos.y + 7*me.game.DB.height/8);
-		  //if pointers are down in roughly the right place, at any
-		  // point during the intro, move on to
-		  // main song
-		  var radius = this.width/16;
-		  var leftokay = false;
-		  var rightokay = false;
-		  for(var prop in me.game.pointers){
-		  	var e = me.game.pointers[prop];
-			var p = new me.Vector2d(e.gameX, e.gameY);
-			if(l.distance(p) < radius){
-			    leftokay = true;
-			}
-			if(r.distance(p) < radius){
-			    rightokay = true;
-			}
-		  }
-		  if(leftokay && rightokay){
-		      this.introDone = true;
-		  }
+	  if((now - this.phraseStartTime)/this.msPerBeat >= this.curPhrase.counts){ 
+	      	this.phraseStartTime = now;
+		if(Object.keys(this.curPhrase.targets).length > 0){
+		    //failed
+		    this.danceState = this.curPhrase.onFailure;
+		} else {
+		    //succeeded
+		    this.danceState = this.curPhrase.onSuccess;
+		}
 
-		  if((now - this.phraseStartTime)/this.msPerBeat >= this.phraseCounts){ 
-		      this.phraseStartTime = now;
-		      if(this.introDone) {
-			  this.danceState = 1;
-			  this.introDone = false;
-			  this.phraseCounts = 24; //main song is 8 bars
-			  me.audio.play("MainBoxStep");
-		      } else {
-			  this.phraseCounts = 12; //intro is 4 bars
-			  me.audio.play("Intro1");
-		      }
-		  }
-		  break;
+		this.curPhrase = JSON.parse(JSON.stringify(this.song[this.danceState]));
+		me.audio.play(this.curPhrase.tune);
 	  }
 	  return true;
      }
