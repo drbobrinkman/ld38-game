@@ -20,7 +20,7 @@
          var dbSprite = new me.Sprite(0, 0, {image: "DanceBox"});
 	 var scaleF = 1.25 * width / dbSprite.width;
 	 dbSprite.scaleV(new me.Vector2d(scaleF, scaleF));
-	 this.addChild(dbSprite);
+	 this.addChild(dbSprite,5);
 	 dbSprite.pos.x = width/(2*scaleF);
 	 dbSprite.pos.y = height/(2*scaleF);
 
@@ -33,19 +33,20 @@
 	 this.pointerDown= me.event.subscribe("pointerdown", this.handleDown);
 	 this.pointerUp= me.event.subscribe("pointerup", this.handleUp);
 
-	 this.targets = new Object();
-	 this.targets[0] = new me.Vector2d(me.game.DB.pos.x + me.game.DB.width/8,
-			   	me.game.DB.pos.y + 7*me.game.DB.height/8);
-	 this.targets[1] = new me.Vector2d(me.game.DB.pos.x + me.game.DB.width/8,
-			   	me.game.DB.pos.y + me.game.DB.height/8);
-	 this.targets[2] = new me.Vector2d(me.game.DB.pos.x + 5*me.game.DB.width/8,
-			   	me.game.DB.pos.y + me.game.DB.height/8);
-	 this.targets[3] = new me.Vector2d(me.game.DB.pos.x + 3*me.game.DB.width/8,
-			  	me.game.DB.pos.y + 7*me.game.DB.height/8);
-	 this.targets[4] = new me.Vector2d(me.game.DB.pos.x + 7*me.game.DB.width/8,
-			  	me.game.DB.pos.y + me.game.DB.height/8);
-	 this.targets[5] = new me.Vector2d(me.game.DB.pos.x + 7*me.game.DB.width/8,
-			  	me.game.DB.pos.y + 7*me.game.DB.height/8);
+	 this.targets = [
+	 	new me.Vector2d(me.game.DB.pos.x + me.game.DB.width/8,
+			me.game.DB.pos.y + 7*me.game.DB.height/8),
+		    new me.Vector2d(me.game.DB.pos.x + me.game.DB.width/8,
+			    me.game.DB.pos.y + me.game.DB.height/8),
+		    new me.Vector2d(me.game.DB.pos.x + 5*me.game.DB.width/8,
+			    me.game.DB.pos.y + me.game.DB.height/8),
+		    new me.Vector2d(me.game.DB.pos.x + 3*me.game.DB.width/8,
+			    me.game.DB.pos.y + 7*me.game.DB.height/8),
+		    new me.Vector2d(me.game.DB.pos.x + 7*me.game.DB.width/8,
+			    me.game.DB.pos.y + me.game.DB.height/8),
+		    new me.Vector2d(me.game.DB.pos.x + 7*me.game.DB.width/8,
+			    me.game.DB.pos.y + 7*me.game.DB.height/8)
+	 ];
 
 	 this.phraseStartTime = me.timer.getTime();
 
@@ -171,6 +172,12 @@
 	//I want a deep copy, and I don't know what I'm doing.
 	this.curPhrase = JSON.parse(JSON.stringify(this.song[this.danceState]));
 	me.audio.play(this.curPhrase.tune);
+	for(i = 0; i < this.curPhrase.targets.length; i++){
+	    var targ = this.curPhrase.targets[i];
+	    me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
+			this.targets[targ.targetNum].y,
+			(targ.permittedSlop)*this.msPerBeat),10);
+	}
      },
 
      handleDown : function(e) {
@@ -209,7 +216,7 @@
 	    }
 	    if(whichTarget != -1){
 		me.game.world.addChild(new game.Poof(e.gameX, e.gameY, 
-				true));
+				true),10);
 	    	delete me.game.DB.curPhrase.targets[whichTarget];
 	    }
 	}
@@ -235,7 +242,7 @@
 	      if(countDiff >= -1 && countDiff - dt/me.game.DB.msPerBeat < -1){
 	      	me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
 			    this.targets[targ.targetNum].y,
-			    (targ.permittedSlop - countDiff)*me.game.DB.msPerBeat));
+			    (targ.permittedSlop - countDiff)*me.game.DB.msPerBeat),10);
 	      }
 	  }
 	  //Also render the steps from the next stage of the song, assuming success
@@ -246,7 +253,7 @@
 	      if(countDiff >= -1 && countDiff - dt/me.game.DB.msPerBeat < -1){
 	      	me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
 			    this.targets[targ.targetNum].y,
-			    (targ.permittedSlop - countDiff)*me.game.DB.msPerBeat));
+			    (targ.permittedSlop - countDiff)*me.game.DB.msPerBeat),10);
 	      }
 	  }
 
@@ -262,6 +269,14 @@
 
 	      this.curPhrase = JSON.parse(JSON.stringify(this.song[this.danceState]));
 	      me.audio.play(this.curPhrase.tune);
+	      if(this.danceState == 0){
+		  for(i = 0; i < this.curPhrase.targets.length; i++){
+		      var targ = this.curPhrase.targets[i];
+		      me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
+				  this.targets[targ.targetNum].y,
+				  (targ.permittedSlop)*this.msPerBeat),10);
+		  }
+	      }
 	  }
 	  return true;
      }

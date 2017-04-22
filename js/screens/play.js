@@ -11,7 +11,7 @@ game.PlayScreen = me.ScreenObject.extend({
 	var ssize = me.game.viewport.width / 3;
 	this.DB = new game.DanceBox(me.game.viewport.width/2 - ssize/2, 
 	    me.game.viewport.height/2 - ssize/2, ssize, ssize);
-	me.game.world.addChild(this.DB);
+	me.game.world.addChild(this.DB,1);
 
 	// Add our HUD to the game world, add it last so that this is on top of the rest.
         // Can also be forced by specifying a "Infinity" z value to the addChild function.
