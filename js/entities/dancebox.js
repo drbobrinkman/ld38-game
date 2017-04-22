@@ -155,7 +155,7 @@
 		    me.game.DB.curPhrase.targets[targnum].permittedSlop){
 		    //Okay, time is a match. Now check location
 		    var p = new me.Vector2d(e.gameX, e.gameY);
-		    if(me.game.DB.targets[me.game.DB.curPhrase.targets[targnum].targetNum].distance(p) <= me.game.DB.width/16){
+		    if(me.game.DB.targets[me.game.DB.curPhrase.targets[targnum].targetNum].distance(p) <= me.game.DB.width/8){
 		    	//The player hit this target
 			whichTarget = targnum;
 			break;
@@ -172,15 +172,16 @@
      draw : function(renderer) {
 	this._super(me.Container, 'draw', [renderer]);
 
-	renderer.setColor('#ffffff');
-
-	var leftFootState = Math.floor(((this.stepState + 1)%6)/2);
-	var rightFootState = Math.floor(this.stepState/2);
-
-	renderer.strokeEllipse(this.targets[leftFootState].x, this.targets[leftFootState].y, 
-		this.width/8, this.height/8);
-	renderer.strokeEllipse(this.targets[rightFootState+3].x, this.targets[rightFootState+3].y, 
-		this.width/8, this.height/8);
+	var curCount = (me.timer.getTime() - me.game.DB.phraseStartTime)/me.game.DB.msPerBeat;
+	for(var targnum in me.game.DB.curPhrase.targets){
+	    var targ = me.game.DB.curPhrase.targets[targnum];
+	    var countDiff = Math.abs(curCount - targ.count)/targ.permittedSlop;
+	    if(countDiff <= 1.0){
+		renderer.setColor(new me.Color(255, 255, 255, 1.0 - countDiff));
+		renderer.strokeEllipse(this.targets[targ.targetNum].x, this.targets[targ.targetNum].y, 
+			this.width/8, this.height/8);
+	    }
+	}
      },
 
      update: function (dt) {
