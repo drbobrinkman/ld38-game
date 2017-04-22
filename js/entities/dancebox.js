@@ -3,15 +3,18 @@
  */
 
  game.DanceBox = me.Container.extend({
-
      /**
       * constructor
       */
      init : function (x, y, width, height) {
 	 // call the constructor
 	 this._super(me.Container, 'init', [x, y , width, height]);
-	 this.stepState = 0;
-	 var dbSprite = new me.Sprite(0, 0, {image: "DanceBox"});
+	 this.stepState = 0; //0 is feet together in lower left
+	 this.danceState = 0; //0 is intro, 1 is main song, 2 is gameover
+	 this.bpm = 90;
+	 this.msPerBeat = 60*1000/this.bpm;
+
+         var dbSprite = new me.Sprite(0, 0, {image: "DanceBox"});
 	 var scaleF = 1.25 * width / dbSprite.width;
 	 dbSprite.scaleV(new me.Vector2d(scaleF, scaleF));
 	 this.addChild(dbSprite);
@@ -20,12 +23,9 @@
      },
 
      draw : function(renderer) {
-	 this._super(me.Container, 'draw', [renderer]);
-	//debug code. TODO remove it
-	this.stepState = (me.timer.getTime() / 666.667) % 6;
+	this._super(me.Container, 'draw', [renderer]);
 
 	renderer.setColor('#ffffff');
-	renderer.strokeRect(this.pos.x, this.pos.y, this.width, this.height);
 
 	var leftFootState = Math.floor(((this.stepState + 1)%6)/2);
 	var rightFootState = Math.floor(this.stepState/2);
