@@ -9,6 +9,10 @@
      init : function (x, y, width, height) {
 	 // call the constructor
 	 this._super(me.Container, 'init', [x, y , width, height]);
+
+	 //This is a total hack because I don't understand scope in Javascript TODO
+	 me.game.DB = this;
+
 	 this.stepState = 0; //0 is feet together in lower left
 	 this.danceState = 0; //0 is intro, 1 is main song, 2 is gameover
 	 this.bpm = 90;
@@ -37,14 +41,16 @@
 
      handleDown : function(e) {
 	me.game.pointers[e.pointerId] = e;
-  	console.log(Object.keys(me.game.pointers).length);
+	//TODO: Should be based on resolution, not hard-coded to 20
+	me.game.DB.addChild(new game.Poof(e.gameX-me.game.DB.pos.x, e.gameY-me.game.DB.pos.y, 20, 20));
+  	//console.log(Object.keys(me.game.pointers).length);
      },
 
      handleUp : function(e) {
 	if(me.game.pointers.hasOwnProperty(e.pointerId)){
 	    delete me.game.pointers[e.pointerId];
 	}
-  	console.log(Object.keys(me.game.pointers).length);
+  	//console.log(Object.keys(me.game.pointers).length);
      },
 
      draw : function(renderer) {
