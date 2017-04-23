@@ -23,7 +23,7 @@
          this.dbSprite = new me.Sprite(0, 0, {image: "AnimatedDanceBox", framewidth: 384, 
 	     frameheight: 384});
 	 this.dbSprite.addAnimation("ripple", [0, 1, 2], 200);
-	 this.dbSprite.addAnimation("death", [0, 3, 4], 2000);
+	 this.dbSprite.addAnimation("death", [0, 3, 4], 1000);
 	 this.dbSprite.addAnimation("dead", [4]);
 	 this.dbSprite.setCurrentAnimation("ripple");
 
@@ -177,7 +177,7 @@
 		 ]
      }, {
 	tune: "SadMusic",
-	counts: 12,
+	counts: 9,
 	onSuccess: 0,
 	onFailure: 0, 
 	targets: []
