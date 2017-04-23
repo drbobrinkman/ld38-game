@@ -171,7 +171,7 @@
 	      ]
 	//I want a deep copy, and I don't know what I'm doing.
 	this.curPhrase = JSON.parse(JSON.stringify(this.song[this.danceState]));
-	me.audio.play(this.curPhrase.tune);
+	this.curTune = me.audio.play(this.curPhrase.tune);
 	for(i = 0; i < this.curPhrase.targets.length; i++){
 	    var targ = this.curPhrase.targets[i];
 	    me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
@@ -244,11 +244,14 @@
 			      false),10);
 		  this.danceState = this.curPhrase.onFailure;
 
+		  me.audio.stop("Intro1");
+		  me.audio.stop("MainBoxStep", this.curTune);
+
 		  //TODO: I'm a bad person, I'm repeating the "start over" code
 		  // too many places
 		  this.phraseStartTime = now;
 		  this.curPhrase = JSON.parse(JSON.stringify(this.song[this.danceState]));
-		  me.audio.play(this.curPhrase.tune);
+		  this.curTune = me.audio.play(this.curPhrase.tune);
 		  if(this.danceState == 0){
 		      for(i = 0; i < this.curPhrase.targets.length; i++){
 			  var targ = this.curPhrase.targets[i];
@@ -257,6 +260,7 @@
 				      (targ.permittedSlop)*this.msPerBeat),10);
 		      }
 		  }
+		  return true;
 	      }
 	  } 
 	  
@@ -293,7 +297,7 @@
 	      }
 
 	      this.curPhrase = JSON.parse(JSON.stringify(this.song[this.danceState]));
-	      me.audio.play(this.curPhrase.tune);
+	      this.curTune = me.audio.play(this.curPhrase.tune);
 	      if(this.danceState == 0){
 		  for(i = 0; i < this.curPhrase.targets.length; i++){
 		      var targ = this.curPhrase.targets[i];
