@@ -6,7 +6,8 @@ game.PlayScreen = me.ScreenObject.extend({
         // reset the score
         game.data.score = 0;
 
-	me.game.world.addChild(new me.ColorLayer("background", "#00003f"), 0);
+	this.BG = new me.ImageLayer(0, 0, {image: "bg"});
+	me.game.world.addChild(new me.ImageLayer(0, 0, {image: "bg"}), 0);
 	
 	var ssize = me.game.viewport.width / 3;
 	this.DB = new game.DanceBox(me.game.viewport.width/2 - ssize/2, 

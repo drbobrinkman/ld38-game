@@ -171,6 +171,9 @@ module.exports = function(grunt) {
 	  src: ['data/fnt/**/*.png'],
 	  type: 'image'
         },{
+          src: ['data/img/**/*.jpg'],
+          type: 'image'
+        },{
           src: ['data/img/**/*.png'],
           type: 'image'
         },{

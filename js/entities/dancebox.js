@@ -819,7 +819,7 @@
 
      draw : function(renderer) {
 	 this._super(me.Container, 'draw', [renderer]);
-	 this.font.draw(renderer, "Could we yet do something? Or shall we just\ndance away the hour until the world runs down?", 20, me.game.world.height - 120);
+	 this.font.draw(renderer, "Could we yet do something? Or shall we just\ndance away the hour until the world runs down?", 1200, me.game.world.height - 120);
      },
 
      update: function (dt) {
