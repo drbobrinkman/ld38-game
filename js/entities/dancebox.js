@@ -200,7 +200,7 @@
      }, {
 	 tune: "Bassoon1",
 	 counts: 24,
-	 onSuccess: 1,
+	 onSuccess: 4,
 	 onFailure: 2, 
 	 targets: [{
 	     		targetNum: 1,
@@ -334,6 +334,410 @@
 		   },{
 		       targetNum: 3,
 		       count: 23,
+		       permittedSlop: 0.5,
+		   }
+		 ]
+     }, {
+	 tune: "Bassoon2",
+	 counts: 24,
+	 onSuccess: 5,
+	 onFailure: 2, 
+	 targets: [
+	 	   {
+	     		targetNum: 1,
+			count: 0,
+			permittedSlop: 0.5,
+		   },
+	 	   {
+	     		targetNum: 7,
+			count: 0.5,
+			permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 4,
+		       count: 1,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 2,
+		       count: 2,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 5,
+		       count: 3,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 0,
+		       count: 4,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 3,
+		       count: 5,
+		       permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 1,
+			count: 6,
+			permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 7,
+			count: 6.5,
+			permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 4,
+		       count: 7,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 2,
+		       count: 8,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 5,
+		       count: 9,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 0,
+		       count: 10,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 3,
+		       count: 11,
+		       permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 1,
+			count: 12,
+			permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 7,
+			count: 12.5,
+			permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 4,
+		       count: 13,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 2,
+		       count: 14,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 5,
+		       count: 15,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 0,
+		       count: 16,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 3,
+		       count: 17,
+		       permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 1,
+			count: 18,
+			permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 7,
+			count: 18.5,
+			permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 4,
+		       count: 19,
+		       permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 10,
+		       count: 19.5,
+		       permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 2,
+		       count: 20,
+		       permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 8,
+		       count: 20.5,
+		       permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 5,
+		       count: 21,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 0,
+		       count: 22,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 3,
+		       count: 23,
+		       permittedSlop: 0.5,
+		   }
+		 ]
+     }, {
+	 tune: "Bassoon3",
+	 counts: 24,
+	 onSuccess: 6,
+	 onFailure: 2, 
+	 targets: [{
+	     		targetNum: 1,
+			count: 0,
+			permittedSlop: 0.5,
+		   },{
+		       targetNum: 4,
+		       count: 1,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 2,
+		       count: 2,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 5,
+		       count: 3,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 0,
+		       count: 4,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 3,
+		       count: 5,
+		       permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 1,
+			count: 6,
+			permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 7,
+			count: 6.5,
+			permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 4,
+		       count: 7,
+		       permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 10,
+		       count: 7.5,
+		       permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 2,
+		       count: 8,
+		       permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 8,
+		       count: 8.5,
+		       permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 5,
+		       count: 9,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 0,
+		       count: 10,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 3,
+		       count: 11,
+		       permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 1,
+			count: 12,
+			permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 7,
+			count: 12.5,
+			permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 4,
+		       count: 13,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 2,
+		       count: 14,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 5,
+		       count: 15,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 0,
+		       count: 16,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 3,
+		       count: 17,
+		       permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 1,
+			count: 18,
+			permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 7,
+			count: 18.5,
+			permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 4,
+		       count: 19,
+		       permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 10,
+		       count: 19.5,
+		       permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 2,
+		       count: 20,
+		       permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 8,
+		       count: 20.5,
+		       permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 5,
+		       count: 21,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 0,
+		       count: 22,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 3,
+		       count: 23,
+		       permittedSlop: 0.5,
+		   }
+		 ]
+     }, {
+	 tune: "BassoonEnd",
+	 counts: 24,
+	 onSuccess: 0,
+	 onFailure: 2, 
+	 targets: [{
+	     		targetNum: 1,
+			count: 0,
+			permittedSlop: 0.5,
+		   },{
+		       targetNum: 4,
+		       count: 1,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 2,
+		       count: 2,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 5,
+		       count: 3,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 0,
+		       count: 4,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 3,
+		       count: 5,
+		       permittedSlop: 0.5,
+		   },{
+	     		targetNum: 1,
+			count: 6,
+			permittedSlop: 0.5,
+		   },{
+		       targetNum: 4,
+		       count: 7,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 2,
+		       count: 8,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 5,
+		       count: 9,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 0,
+		       count: 10,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 3,
+		       count: 11,
+		       permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 1,
+			count: 12,
+			permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 7,
+			count: 12.5,
+			permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 4,
+		       count: 13,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 2,
+		       count: 14,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 5,
+		       count: 15,
+		       permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 1,
+			count: 18,
+			permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 7,
+			count: 18.5,
+			permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 4,
+		       count: 19,
+		       permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 10,
+		       count: 19.5,
+		       permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 2,
+		       count: 20,
+		       permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 8,
+		       count: 20.5,
+		       permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 5,
+		       count: 21,
 		       permittedSlop: 0.5,
 		   }
 		 ]
