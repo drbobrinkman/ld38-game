@@ -25,6 +25,15 @@ game.PlayScreen = me.ScreenObject.extend({
 	me.input.registerPointerEvent("pointerup", me.game.viewport, function (event) {
 	        me.event.publish("pointerup", [ event ]);
 	});
+	//This is a work-around because pointerdown seems to be broken in android
+	if(me.device.android){
+	    me.input.registerPointerEvent("pointerenter", me.game.viewport, function (event) {
+		me.event.publish("pointerdown", [ event ]);
+	    });
+	    me.input.registerPointerEvent("pointermove", me.game.viewport, function (event) {
+		me.event.publish("pointerdown", [ event ]);
+	    });
+	}
     },
 
     /**
