@@ -62,12 +62,12 @@
 	 onFailure: 0,
 	 targets: [{
 			targetNum: 0,	
-	   		count: 0,
-		    	permittedSlop: 12,
+	   		count: 3,
+		    	permittedSlop: 9,
 		   },{
 		    	targetNum: 3,
-		    	count: 0,
-		    	permittedSlop: 12,
+		    	count: 3,
+		    	permittedSlop: 9,
 		   }]
      }, {
 	 tune: "MainBoxStep",
@@ -184,12 +184,12 @@
 	//I want a deep copy, and I don't know what I'm doing.
 	this.curPhrase = JSON.parse(JSON.stringify(this.song[this.danceState]));
 	this.curTune = me.audio.play(this.curPhrase.tune);
-	for(i = 0; i < this.curPhrase.targets.length; i++){
-	    var targ = this.curPhrase.targets[i];
-	    me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
-			this.targets[targ.targetNum].y,
-			(targ.permittedSlop)*this.msPerBeat),10);
-	}
+	//for(i = 0; i < this.curPhrase.targets.length; i++){
+	 //   var targ = this.curPhrase.targets[i];
+	 //   me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
+	//		this.targets[targ.targetNum].y,
+	//		(targ.permittedSlop)*this.msPerBeat),10);
+	//}
      },
 
      handleDown : function(e) {
@@ -266,12 +266,12 @@
 		  this.curTune = me.audio.play(this.curPhrase.tune);
 		  if(this.danceState == 0){
 		      this.dbSprite.setCurrentAnimation("ripple");
-		      for(i = 0; i < this.curPhrase.targets.length; i++){
-			  var targ = this.curPhrase.targets[i];
-			  me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
-				      this.targets[targ.targetNum].y,
-				      (targ.permittedSlop)*this.msPerBeat),10);
-		      }
+		      //for(i = 0; i < this.curPhrase.targets.length; i++){
+		//	  var targ = this.curPhrase.targets[i];
+		//	  me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
+		//		      this.targets[targ.targetNum].y,
+		//		      (targ.permittedSlop)*this.msPerBeat),10);
+		  //    }
 		  } else if (this.danceState == 2) {
 		      this.dbSprite.setCurrentAnimation("death","dead");
 		  }
@@ -315,12 +315,12 @@
 	      this.curTune = me.audio.play(this.curPhrase.tune);
 	      if(this.danceState == 0){
 		  this.dbSprite.setCurrentAnimation("ripple");
-		  for(i = 0; i < this.curPhrase.targets.length; i++){
-		      var targ = this.curPhrase.targets[i];
-		      me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
-				  this.targets[targ.targetNum].y,
-				  (targ.permittedSlop)*this.msPerBeat),10);
-		  }
+		  //for(i = 0; i < this.curPhrase.targets.length; i++){
+		  //    var targ = this.curPhrase.targets[i];
+		  //    me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
+		//		  this.targets[targ.targetNum].y,
+		//		  (targ.permittedSlop)*this.msPerBeat),10);
+		  //}
 	      } else if (this.danceState == 2) {
 		  this.dbSprite.setCurrentAnimation("death","dead");
 	      }
