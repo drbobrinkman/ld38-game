@@ -42,18 +42,34 @@
 	 this.pointerUp= me.event.subscribe("pointerup", this.handleUp);
 
 	 this.targets = [
-	 	new me.Vector2d(me.game.DB.pos.x + me.game.DB.width/8,
-			me.game.DB.pos.y + 7*me.game.DB.height/8),
-		    new me.Vector2d(me.game.DB.pos.x + me.game.DB.width/8,
-			    me.game.DB.pos.y + me.game.DB.height/8),
-		    new me.Vector2d(me.game.DB.pos.x + 5*me.game.DB.width/8,
-			    me.game.DB.pos.y + me.game.DB.height/8),
-		    new me.Vector2d(me.game.DB.pos.x + 3*me.game.DB.width/8,
-			    me.game.DB.pos.y + 7*me.game.DB.height/8),
-		    new me.Vector2d(me.game.DB.pos.x + 7*me.game.DB.width/8,
-			    me.game.DB.pos.y + me.game.DB.height/8),
-		    new me.Vector2d(me.game.DB.pos.x + 7*me.game.DB.width/8,
-			    me.game.DB.pos.y + 7*me.game.DB.height/8)
+	     //left foot positions
+	     new me.Vector2d(me.game.DB.pos.x + me.game.DB.width/8,
+		     me.game.DB.pos.y + 7*me.game.DB.height/8),
+		 new me.Vector2d(me.game.DB.pos.x + me.game.DB.width/8,
+			 me.game.DB.pos.y + me.game.DB.height/8),
+		 new me.Vector2d(me.game.DB.pos.x + 5*me.game.DB.width/8,
+			 me.game.DB.pos.y + me.game.DB.height/8),
+	     //right foot positions
+		 new me.Vector2d(me.game.DB.pos.x + 3*me.game.DB.width/8,
+			 me.game.DB.pos.y + 7*me.game.DB.height/8),
+		 new me.Vector2d(me.game.DB.pos.x + 7*me.game.DB.width/8,
+			 me.game.DB.pos.y + me.game.DB.height/8),
+		 new me.Vector2d(me.game.DB.pos.x + 7*me.game.DB.width/8,
+			 me.game.DB.pos.y + 7*me.game.DB.height/8),
+	     //left foot flourishes
+	     new me.Vector2d(me.game.DB.pos.x - me.game.DB.width/8,
+		     me.game.DB.pos.y + 7*me.game.DB.height/8),
+		 new me.Vector2d(me.game.DB.pos.x - me.game.DB.width/8,
+			 me.game.DB.pos.y + me.game.DB.height/8),
+		 new me.Vector2d(me.game.DB.pos.x + 3*me.game.DB.width/8,
+			 me.game.DB.pos.y + me.game.DB.height/8),
+	     //right foot flourishes
+		new me.Vector2d(me.game.DB.pos.x + 5*me.game.DB.width/8,
+			 me.game.DB.pos.y + 7*me.game.DB.height/8),
+		 new me.Vector2d(me.game.DB.pos.x + 9*me.game.DB.width/8,
+			 me.game.DB.pos.y + me.game.DB.height/8),
+		 new me.Vector2d(me.game.DB.pos.x + 9*me.game.DB.width/8,
+			 me.game.DB.pos.y + 7*me.game.DB.height/8)
 	 ];
 
 	 this.phraseStartTime = me.timer.getTime();
@@ -75,7 +91,7 @@
      }, {
 	 tune: "MainBoxStep",
 	 counts: 24,
-	 onSuccess: 1,
+	 onSuccess: 3,
 	 onFailure: 2, 
 	 targets: [{
 	     		targetNum: 1,
@@ -181,6 +197,146 @@
 	onSuccess: 0,
 	onFailure: 0, 
 	targets: []
+     }, {
+	 tune: "Bassoon1",
+	 counts: 24,
+	 onSuccess: 1,
+	 onFailure: 2, 
+	 targets: [{
+	     		targetNum: 1,
+			count: 0,
+			permittedSlop: 0.5,
+		   },{
+		       targetNum: 4,
+		       count: 1,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 2,
+		       count: 2,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 5,
+		       count: 3,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 0,
+		       count: 4,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 3,
+		       count: 5,
+		       permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 1,
+			count: 6,
+			permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 7,
+			count: 6.5,
+			permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 4,
+		       count: 7,
+		       permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 10,
+			count: 7.5,
+			permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 2,
+		       count: 8,
+		       permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 8,
+			count: 8.5,
+			permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 5,
+		       count: 9,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 0,
+		       count: 10,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 3,
+		       count: 11,
+		       permittedSlop: 0.5,
+		   },{
+	     		targetNum: 1,
+			count: 12,
+			permittedSlop: 0.5,
+		   },{
+		       targetNum: 4,
+		       count: 13,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 2,
+		       count: 14,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 5,
+		       count: 15,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 0,
+		       count: 16,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 3,
+		       count: 17,
+		       permittedSlop: 0.5,
+		   },{
+	     		targetNum: 1,
+			count: 18,
+			permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 7,
+			count: 18.5,
+			permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 4,
+		       count: 19,
+		       permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 10,
+			count: 19.5,
+			permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 2,
+		       count: 20,
+		       permittedSlop: 0.5,
+		   },
+		   {
+	     		targetNum: 8,
+			count: 20.5,
+			permittedSlop: 0.5,
+		   },
+		   {
+		       targetNum: 5,
+		       count: 21,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 0,
+		       count: 22,
+		       permittedSlop: 0.5,
+		   },{
+		       targetNum: 3,
+		       count: 23,
+		       permittedSlop: 0.5,
+		   }
+		 ]
      }
 	 ] //end song
 
@@ -203,6 +359,7 @@
      },
 
      checkTarget : function(e, kind) {
+	 var radius = 96;
 	if(kind == "down"){
 	    //Check if this even satisfies any targets. Can only satisfy one target
 	    var whichTarget = -1;
@@ -215,7 +372,7 @@
 		    //Okay, time is a match. Now check location
 		    var p = new me.Vector2d(e.gameX, e.gameY);
 		    if(me.game.DB.targets[me.game.DB.curPhrase.targets[targnum].targetNum].distance(p) 
-			<= me.game.DB.width/4){
+			<= radius){
 		    	//The player hit this target
 			whichTarget = targnum;
 			me.game.world.addChild(new game.Poof(e.gameX, e.gameY, 
@@ -233,7 +390,7 @@
 			//Okay, time is a match. Now check location
 			var p = new me.Vector2d(e.gameX, e.gameY);
 			if(me.game.DB.targets[me.game.DB.nextPhrase.targets[targnum].targetNum]
-			    .distance(p) <= me.game.DB.width/4){
+			    .distance(p) <= radius){
 			    //The player hit this target
 			    whichTarget = targnum;
 			    me.game.world.addChild(new game.Poof(e.gameX, e.gameY, 
@@ -270,8 +427,9 @@
 			      false),10);
 		  this.danceState = this.curPhrase.onFailure;
 
-		  me.audio.stop("Intro1");
+		  me.audio.stop("Intro1", this.curTune);
 		  me.audio.stop("MainBoxStep", this.curTune);
+		  me.audio.stop("Bassoon1", this.curTune);
 
 		  //TODO: I'm a bad person, I'm repeating the "start over" code
 		  // too many places
