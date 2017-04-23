@@ -20,15 +20,17 @@
 	 this.bpm = 90;
 	 this.msPerBeat = 60*1000/this.bpm;
 
-         this.dbSprite = new me.Sprite(0, 0, {image: "AnimatedDanceBox", framewidth: 768, frameheight: 768});
+         this.dbSprite = new me.Sprite(0, 0, {image: "AnimatedDanceBox", framewidth: 384, 
+	     frameheight: 384});
 	 this.dbSprite.addAnimation("ripple", [0, 1, 2], 200);
 	 this.dbSprite.addAnimation("death", [0, 3, 4], 2000);
 	 this.dbSprite.addAnimation("dead", [4]);
 	 this.dbSprite.setCurrentAnimation("ripple");
 
 	 this.addChild(this.dbSprite,5);
-	 this.dbSprite.pos.x = width/2;
-	 this.dbSprite.pos.y = height/2;
+	 this.dbSprite.pos.x = width/4;
+	 this.dbSprite.pos.y = height/4;
+	 this.dbSprite.scale(2.0);
 
 	 me.game.pointers = new Object(); //Will use as associative array to hold
 	 // info about status of pointers
