@@ -20,17 +20,26 @@
 	 this.bpm = 90;
 	 this.msPerBeat = 60*1000/this.bpm;
 
-         this.dbSprite = new me.Sprite(0, 0, {image: "AnimatedDanceBox", framewidth: 384, 
+         this.dbSprite = new me.Sprite(0, 0, {image: "DanceBoxFG", framewidth: 384, 
 	     frameheight: 384});
-	 this.dbSprite.addAnimation("ripple", [0, 1, 2], 200);
-	 this.dbSprite.addAnimation("death", [0, 3, 4], 1000);
-	 this.dbSprite.addAnimation("dead", [4]);
-	 this.dbSprite.setCurrentAnimation("ripple");
+	 this.dbSprite.addAnimation("healthy", [0]);
+	 this.dbSprite.addAnimation("death", [0, 1, 2], 1000);
+	 this.dbSprite.addAnimation("dead", [2]);
+	 this.dbSprite.setCurrentAnimation("healthy");
 
+         this.waterSprite = new me.Sprite(0, 0, {image: "WaterRipples", framewidth: 384, 
+	     frameheight: 384});
+	 this.waterSprite.addAnimation("ripple", [0, 1, 2], 200);
+	 this.waterSprite.setCurrentAnimation("ripple");
+	 
 	 this.addChild(this.dbSprite,5);
 	 this.dbSprite.pos.x = width/4;
 	 this.dbSprite.pos.y = height/4;
 	 this.dbSprite.scale(2.0);
+	 this.addChild(this.waterSprite,4);
+	 this.waterSprite.pos.x = width/4;
+	 this.waterSprite.pos.y = height/4;
+	 this.waterSprite.scale(2.0);
 
 	 me.game.pointers = new Object(); //Will use as associative array to hold
 	 // info about status of pointers
@@ -842,7 +851,7 @@
 		  this.nextPhrase = JSON.parse(JSON.stringify(this.song[this.curPhrase.onSuccess]));
 		  this.curTune = me.audio.play(this.curPhrase.tune);
 		  if(this.danceState == 0){
-		      this.dbSprite.setCurrentAnimation("ripple");
+		      this.dbSprite.setCurrentAnimation("healthy");
 		  } else if (this.danceState == 2) {
 		      this.dbSprite.setCurrentAnimation("death","dead");
 		  }
@@ -887,7 +896,7 @@
 	      this.nextPhrase = JSON.parse(JSON.stringify(this.song[this.curPhrase.onSuccess]));
 	      this.curTune = me.audio.play(this.curPhrase.tune);
 	      if(this.danceState == 0){
-		  this.dbSprite.setCurrentAnimation("ripple");
+		  this.dbSprite.setCurrentAnimation("healthy");
 	      } else if (this.danceState == 2) {
 		  this.dbSprite.setCurrentAnimation("death","dead");
 	      }
