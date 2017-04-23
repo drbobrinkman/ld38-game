@@ -8,7 +8,7 @@
       */
      init : function (x, y, lt) {
 	 // call the constructor
-	 this._super(me.Sprite, 'init', [x, y , {image: "foop", framewidth: 128, frameheight: 128}]);
+	 this._super(me.Sprite, 'init', [x, y , {image: "foop", framewidth: 192, frameheight: 192}]);
 	 this.msPerBeat = 666.667; //in ms
 	 this.lifeTime = lt;
 	 this.addAnimation("foop", [0, 1, 2, 3, 4], this.msPerBeat/5);

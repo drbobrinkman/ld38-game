@@ -8,7 +8,8 @@
       */
      init : function (x, y, good) {
 	 // call the constructor
-	 this._super(me.Sprite, 'init', [x, y , {image: good ? "poof" : "badpoof", framewidth: 256, frameheight: 256}]);
+	 this._super(me.Sprite, 'init', [x, y , {image: good ? "poof" : "badpoof", framewidth: 384, 
+	     frameheight: 384}]);
 	 this.lifeTime = 666.667; //in ms
          this.addAnimation("poof", [0, 1, 2, 3, 4, 5, 6], this.lifeTime/6);
   	 this.setCurrentAnimation("poof");
