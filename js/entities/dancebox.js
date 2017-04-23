@@ -41,6 +41,19 @@
 	 this.waterSprite.pos.y = height/4;
 	 this.waterSprite.scale(2.0);
 
+	 this.beginSprite = new me.Sprite(0, 0, {image: "begin", framewidth: 710, frameheight: 533});
+	 this.addChild(this.beginSprite, 6);
+	 this.beginSprite.pos.x = 140;
+	 this.beginSprite.pos.y = 150;
+	 this.beginSprite.scale(2.0);
+
+	 this.tutSprite = new me.Sprite(0, 0, {image: "boxinst", framewidth: 710, frameheight: 533});
+	 this.addChild(this.tutSprite, 6);
+	 this.tutSprite.pos.x = 140;
+	 this.tutSprite.pos.y = 150;
+	 this.tutSprite.scale(2.0);
+	 this.tutSprite.setOpacity(0.0);
+
 	 me.game.pointers = new Object(); //Will use as associative array to hold
 	 // info about status of pointers
 	 //TODO: Tried to use this.pointers but it didn't work. Not sure why.
@@ -814,6 +827,16 @@
 		    }
 		}
 	    }
+	    if(this.danceState == 0 && Object.keys(this.curPhrase.targets).length == 0){
+		this.beginSprite.setOpacity(0.0);
+		this.tutSprite.setOpacity(1.0);
+	    } else if (this.danceState != 0) {
+		this.beginSprite.setOpacity(0.0);
+		this.tutSprite.setOpacity(0.0);
+	    } else {
+		this.beginSprite.setOpacity(1.0);
+		this.tutSprite.setOpacity(0.0);
+	    }
 	}
      },
 
@@ -855,6 +878,8 @@
 		  this.curTune = me.audio.play(this.curPhrase.tune);
 		  if(this.danceState == 0){
 		      this.dbSprite.setCurrentAnimation("healthy");
+		      this.beginSprite.setOpacity(1.0);
+		      this.tutSprite.setOpacity(0.0);
 		  } else if (this.danceState == 2) {
 		      this.dbSprite.setCurrentAnimation("death","dead");
 		  }
@@ -900,6 +925,8 @@
 	      this.curTune = me.audio.play(this.curPhrase.tune);
 	      if(this.danceState == 0){
 		  this.dbSprite.setCurrentAnimation("healthy");
+		  this.beginSprite.setOpacity(1.0);
+		  this.tutSprite.setOpacity(0.0);
 	      } else if (this.danceState == 2) {
 		  this.dbSprite.setCurrentAnimation("death","dead");
 	      }
