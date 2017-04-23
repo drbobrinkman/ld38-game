@@ -184,17 +184,10 @@
 	//I want a deep copy, and I don't know what I'm doing.
 	this.curPhrase = JSON.parse(JSON.stringify(this.song[this.danceState]));
 	this.curTune = me.audio.play(this.curPhrase.tune);
-	//for(i = 0; i < this.curPhrase.targets.length; i++){
-	 //   var targ = this.curPhrase.targets[i];
-	 //   me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
-	//		this.targets[targ.targetNum].y,
-	//		(targ.permittedSlop)*this.msPerBeat),10);
-	//}
      },
 
      handleDown : function(e) {
 	me.game.pointers[e.pointerId] = e;
-  	//console.log(Object.keys(me.game.pointers).length);
 	me.game.DB.checkTarget(e,"down");
      },
 
@@ -203,7 +196,6 @@
 	    delete me.game.pointers[e.pointerId];
 	}
 	me.game.DB.checkTarget(e,"up");
-  	//console.log(Object.keys(me.game.pointers).length);
      },
 
      checkTarget : function(e, kind) {
@@ -266,12 +258,6 @@
 		  this.curTune = me.audio.play(this.curPhrase.tune);
 		  if(this.danceState == 0){
 		      this.dbSprite.setCurrentAnimation("ripple");
-		      //for(i = 0; i < this.curPhrase.targets.length; i++){
-		//	  var targ = this.curPhrase.targets[i];
-		//	  me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
-		//		      this.targets[targ.targetNum].y,
-		//		      (targ.permittedSlop)*this.msPerBeat),10);
-		  //    }
 		  } else if (this.danceState == 2) {
 		      this.dbSprite.setCurrentAnimation("death","dead");
 		  }
@@ -315,12 +301,6 @@
 	      this.curTune = me.audio.play(this.curPhrase.tune);
 	      if(this.danceState == 0){
 		  this.dbSprite.setCurrentAnimation("ripple");
-		  //for(i = 0; i < this.curPhrase.targets.length; i++){
-		  //    var targ = this.curPhrase.targets[i];
-		  //    me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
-		//		  this.targets[targ.targetNum].y,
-		//		  (targ.permittedSlop)*this.msPerBeat),10);
-		  //}
 	      } else if (this.danceState == 2) {
 		  this.dbSprite.setCurrentAnimation("death","dead");
 	      }
