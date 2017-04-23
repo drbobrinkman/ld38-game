@@ -17,16 +17,17 @@
 	 this.bpm = 90;
 	 this.msPerBeat = 60*1000/this.bpm;
 
-         var dbSprite = new me.Sprite(0, 0, {image: "AnimatedDanceBox", framewidth: 512, frameheight: 512});
-	 dbSprite.addAnimation("ripple", [0, 1, 2], 200);
-	 dbSprite.addAnimation("death", [0, 4, 5], 200);
-	 dbSprite.setCurrentAnimation("ripple");
+         this.dbSprite = new me.Sprite(0, 0, {image: "AnimatedDanceBox", framewidth: 512, frameheight: 512});
+	 this.dbSprite.addAnimation("ripple", [0, 1, 2], 200);
+	 this.dbSprite.addAnimation("death", [0, 3, 4], 2000);
+	 this.dbSprite.addAnimation("dead", [4]);
+	 this.dbSprite.setCurrentAnimation("ripple");
 
-	 var scaleF = 1.25 * width / dbSprite.width;
-	 dbSprite.scaleV(new me.Vector2d(scaleF, scaleF));
-	 this.addChild(dbSprite,5);
-	 dbSprite.pos.x = width/(2*scaleF);
-	 dbSprite.pos.y = height/(2*scaleF);
+	 var scaleF = 1.25 * width / this.dbSprite.width;
+	 this.dbSprite.scaleV(new me.Vector2d(scaleF, scaleF));
+	 this.addChild(this.dbSprite,5);
+	 this.dbSprite.pos.x = width/(2*scaleF);
+	 this.dbSprite.pos.y = height/(2*scaleF);
 
 	 me.game.pointers = new Object(); //Will use as associative array to hold
 	 // info about status of pointers
@@ -72,7 +73,7 @@
 	 tune: "MainBoxStep",
 	 counts: 24,
 	 onSuccess: 1,
-	 onFailure: 0, 
+	 onFailure: 2, 
 	 targets: [{
 	     		targetNum: 1,
 			count: 0,
@@ -171,8 +172,15 @@
 		       permittedSlop: 0.5,
 		   }
 		 ]
-     	        }
-	      ]
+     }, {
+	tune: "SadMusic",
+	counts: 12,
+	onSuccess: 0,
+	onFailure: 0, 
+	targets: []
+     }
+	 ] //end song
+
 	//I want a deep copy, and I don't know what I'm doing.
 	this.curPhrase = JSON.parse(JSON.stringify(this.song[this.danceState]));
 	this.curTune = me.audio.play(this.curPhrase.tune);
@@ -257,12 +265,15 @@
 		  this.curPhrase = JSON.parse(JSON.stringify(this.song[this.danceState]));
 		  this.curTune = me.audio.play(this.curPhrase.tune);
 		  if(this.danceState == 0){
+		      this.dbSprite.setCurrentAnimation("ripple");
 		      for(i = 0; i < this.curPhrase.targets.length; i++){
 			  var targ = this.curPhrase.targets[i];
 			  me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
 				      this.targets[targ.targetNum].y,
 				      (targ.permittedSlop)*this.msPerBeat),10);
 		      }
+		  } else if (this.danceState == 2) {
+		      this.dbSprite.setCurrentAnimation("death","dead");
 		  }
 		  return true;
 	      }
@@ -303,12 +314,15 @@
 	      this.curPhrase = JSON.parse(JSON.stringify(this.song[this.danceState]));
 	      this.curTune = me.audio.play(this.curPhrase.tune);
 	      if(this.danceState == 0){
+		  this.dbSprite.setCurrentAnimation("ripple");
 		  for(i = 0; i < this.curPhrase.targets.length; i++){
 		      var targ = this.curPhrase.targets[i];
 		      me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
 				  this.targets[targ.targetNum].y,
 				  (targ.permittedSlop)*this.msPerBeat),10);
 		  }
+	      } else if (this.danceState == 2) {
+		  this.dbSprite.setCurrentAnimation("death","dead");
 	      }
 	  }
 	  return true;
