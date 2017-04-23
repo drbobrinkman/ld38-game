@@ -17,7 +17,11 @@
 	 this.bpm = 90;
 	 this.msPerBeat = 60*1000/this.bpm;
 
-         var dbSprite = new me.Sprite(0, 0, {image: "DanceBox"});
+         var dbSprite = new me.Sprite(0, 0, {image: "AnimatedDanceBox", framewidth: 512, frameheight: 512});
+	 dbSprite.addAnimation("ripple", [0, 1, 2], 200);
+	 dbSprite.addAnimation("death", [0, 4, 5], 200);
+	 dbSprite.setCurrentAnimation("ripple");
+
 	 var scaleF = 1.25 * width / dbSprite.width;
 	 dbSprite.scaleV(new me.Vector2d(scaleF, scaleF));
 	 this.addChild(dbSprite,5);
