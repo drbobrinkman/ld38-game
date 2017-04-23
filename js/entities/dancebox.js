@@ -186,6 +186,7 @@
 
 	//I want a deep copy, and I don't know what I'm doing.
 	this.curPhrase = JSON.parse(JSON.stringify(this.song[this.danceState]));
+	this.nextPhrase = JSON.parse(JSON.stringify(this.song[this.curPhrase.onSuccess]));
 	this.curTune = me.audio.play(this.curPhrase.tune);
      },
 
@@ -259,6 +260,7 @@
 		  // too many places
 		  this.phraseStartTime = now;
 		  this.curPhrase = JSON.parse(JSON.stringify(this.song[this.danceState]));
+		  this.nextPhrase = JSON.parse(JSON.stringify(this.song[this.curPhrase.onSuccess]));
 		  this.curTune = me.audio.play(this.curPhrase.tune);
 		  if(this.danceState == 0){
 		      this.dbSprite.setCurrentAnimation("ripple");
@@ -281,8 +283,8 @@
 	  }
 	  //Also render the steps from the next stage of the song, assuming success
 	  curCount -= me.game.DB.curPhrase.counts;
-	  for(var targnum in me.game.DB.song[me.game.DB.curPhrase.onSuccess].targets) {
-	      var targ = me.game.DB.song[me.game.DB.curPhrase.onSuccess].targets[targnum];
+	  for(var targnum in this.nextPhrase.targets) {
+	      var targ = me.game.DB.nextPhrase.targets[targnum];
 	      var countDiff = curCount - targ.count; //When it goes from < -1 to >= -1 we need to act
 	      if(countDiff >= -1 && countDiff - dt/me.game.DB.msPerBeat < -1){
 	      	me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
@@ -296,12 +298,14 @@
 	      if(Object.keys(this.curPhrase.targets).length > 0){
 		  //failed
 		  this.danceState = this.curPhrase.onFailure;
+		  this.curPhrase = JSON.parse(JSON.stringify(this.song[this.danceState]));
 	      } else {
 		  //succeeded
 		  this.danceState = this.curPhrase.onSuccess;
+		  this.curPhrase = this.nextPhrase;
 	      }
 
-	      this.curPhrase = JSON.parse(JSON.stringify(this.song[this.danceState]));
+	      this.nextPhrase = JSON.parse(JSON.stringify(this.song[this.curPhrase.onSuccess]));
 	      this.curTune = me.audio.play(this.curPhrase.tune);
 	      if(this.danceState == 0){
 		  this.dbSprite.setCurrentAnimation("ripple");
