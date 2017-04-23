@@ -217,7 +217,7 @@
 	    if(whichTarget != -1){
 		me.game.world.addChild(new game.Poof(e.gameX, e.gameY, 
 				true),10);
-	    	delete me.game.DB.curPhrase.targets[whichTarget];
+	    	me.game.DB.curPhrase.targets.splice(whichTarget, 1);
 	    }
 	}
      },
@@ -229,13 +229,38 @@
      update: function (dt) {
           this._super(me.Container, "update", [dt]);
 	  var now = me.timer.getTime();
+	  var curCount = (me.timer.getTime() - me.game.DB.phraseStartTime)/me.game.DB.msPerBeat;
 
-	  //TODO: If missed a target, make a sad graphic
-	  
-	  
+	  // If missed a target, make a sad graphic
+	  for(i = 0; i < me.game.DB.curPhrase.targets.length; i++){
+	      var targ = me.game.DB.curPhrase.targets[i];
+	      if(!targ){
+		  console.log("oop");
+	      }
+	      var countDiff = curCount - targ.count; //if countDiff > permittedSlop, we are done
+	      if(countDiff > targ.permittedSlop){
+		  me.game.world.addChild(new game.Poof(this.targets[targ.targetNum].x, 
+			      this.targets[targ.targetNum].y,
+			      false),10);
+		  this.danceState = this.curPhrase.onFailure;
+
+		  //TODO: I'm a bad person, I'm repeating the "start over" code
+		  // too many places
+		  this.phraseStartTime = now;
+		  this.curPhrase = JSON.parse(JSON.stringify(this.song[this.danceState]));
+		  me.audio.play(this.curPhrase.tune);
+		  if(this.danceState == 0){
+		      for(i = 0; i < this.curPhrase.targets.length; i++){
+			  var targ = this.curPhrase.targets[i];
+			  me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
+				      this.targets[targ.targetNum].y,
+				      (targ.permittedSlop)*this.msPerBeat),10);
+		      }
+		  }
+	      }
+	  } 
 	  
 	  //This section: Make a tap cue for upcoming steps
-	  var curCount = (me.timer.getTime() - me.game.DB.phraseStartTime)/me.game.DB.msPerBeat;
 	  for(var targnum in me.game.DB.curPhrase.targets){
 	      var targ = me.game.DB.curPhrase.targets[targnum];
 	      var countDiff = curCount - targ.count; //When it goes from < -1 to >= -1 we need to act
