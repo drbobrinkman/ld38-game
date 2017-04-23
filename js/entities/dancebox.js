@@ -843,6 +843,9 @@
 		  me.audio.stop("Intro1", this.curTune);
 		  me.audio.stop("MainBoxStep", this.curTune);
 		  me.audio.stop("Bassoon1", this.curTune);
+		  me.audio.stop("Bassoon2", this.curTune);
+		  me.audio.stop("Bassoon3", this.curTune);
+		  me.audio.stop("BassoonEnd", this.curTune);
 
 		  //TODO: I'm a bad person, I'm repeating the "start over" code
 		  // too many places
