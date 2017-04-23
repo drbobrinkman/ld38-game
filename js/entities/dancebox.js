@@ -218,14 +218,31 @@
 			<= me.game.DB.width/4){
 		    	//The player hit this target
 			whichTarget = targnum;
+			me.game.world.addChild(new game.Poof(e.gameX, e.gameY, 
+				    true),10);
+			me.game.DB.curPhrase.targets.splice(whichTarget, 1);
 			break;
 		    }
 		}
 	    }
-	    if(whichTarget != -1){
-		me.game.world.addChild(new game.Poof(e.gameX, e.gameY, 
-				true),10);
-	    	me.game.DB.curPhrase.targets.splice(whichTarget, 1);
+	    curCount -= me.game.DB.curPhrase.counts;
+	    if(whichTarget == -1){
+		for(var targnum in me.game.DB.nextPhrase.targets){
+		    if(Math.abs(curCount - me.game.DB.nextPhrase.targets[targnum].count) <=
+			    me.game.DB.nextPhrase.targets[targnum].permittedSlop){
+			//Okay, time is a match. Now check location
+			var p = new me.Vector2d(e.gameX, e.gameY);
+			if(me.game.DB.targets[me.game.DB.nextPhrase.targets[targnum].targetNum]
+			    .distance(p) <= me.game.DB.width/4){
+			    //The player hit this target
+			    whichTarget = targnum;
+			    me.game.world.addChild(new game.Poof(e.gameX, e.gameY, 
+					true),10);
+			    me.game.DB.nextPhrase.targets.splice(whichTarget, 1);
+			    break;
+			}
+		    }
+		}
 	    }
 	}
      },
