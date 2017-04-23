@@ -14,11 +14,6 @@ game.PlayScreen = me.ScreenObject.extend({
 	    me.game.viewport.height/2 - ssize/2, ssize, ssize);
 	me.game.world.addChild(this.DB,1);
 
-	// Add our HUD to the game world, add it last so that this is on top of the rest.
-        // Can also be forced by specifying a "Infinity" z value to the addChild function.
-        this.HUD = new game.HUD.Container();
-        me.game.world.addChild(this.HUD);
-
 	//Register for pointer events for whole screen, distribute via pubsub
 	me.input.registerPointerEvent("pointerdown", me.game.viewport, function (event) {
 	        me.event.publish("pointerdown", [ event ]);
@@ -41,8 +36,7 @@ game.PlayScreen = me.ScreenObject.extend({
      *  action to perform when leaving this screen (state change)
      */
     onDestroyEvent: function() {
+	me.game.world.removeChild(this.BG);
 	me.game.world.removeChild(this.DB);
-	// remove the HUD from the game world
-        me.game.world.removeChild(this.HUD);
     }
 });
