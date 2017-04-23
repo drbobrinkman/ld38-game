@@ -13,9 +13,9 @@
 	 //This is a total hack because I don't understand scope in Javascript TODO
 	 me.game.DB = this;
 
-	 this.font = new me.BitmapFont(me.loader.getBinary('GreatVibes72'), 
-	     me.loader.getImage('GreatVibes72'));
-
+	 this.font = new me.BitmapFont(me.loader.getBinary('GreatVibes48'), 
+	     me.loader.getImage('GreatVibes48'));
+	 
 	 this.danceState = 0; //Tells us which part of the song we are in. 
 	 this.bpm = 90;
 	 this.msPerBeat = 60*1000/this.bpm;
@@ -230,7 +230,8 @@
      },
 
      draw : function(renderer) {
-	this._super(me.Container, 'draw', [renderer]);
+	 this._super(me.Container, 'draw', [renderer]);
+	 this.font.draw(renderer, "Could we yet do something? Or shall we just\ndance away the hour until the world runs down?", 20, me.game.world.height - 120);
      },
 
      update: function (dt) {
