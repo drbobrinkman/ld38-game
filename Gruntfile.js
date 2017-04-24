@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    
+
     concat: {
       dist: {
         src: [
@@ -20,20 +20,20 @@ module.exports = function(grunt) {
         files: [{
           src: 'index.css',
           dest: 'build/index.css'
-        },{
+        }, {
           src: 'main.js',
           dest: 'build/main.js'
-        },{
+        }, {
           src: 'manifest.json',
           dest: 'build/manifest.json'
-        },{
+        }, {
           src: 'package.json',
           dest: 'build/package.json'
-        },{
+        }, {
           src: 'data/**/*',
           dest: 'build/',
           expand: true
-        },{
+        }, {
           src: 'icons/*',
           dest: 'build/',
           expand: true
@@ -43,7 +43,7 @@ module.exports = function(grunt) {
 
     clean: {
       app: ['build/js/app.js'],
-      dist: ['build/','bin/'],
+      dist: ['build/', 'bin/'],
     },
 
     processhtml: {
@@ -60,24 +60,20 @@ module.exports = function(grunt) {
       }
     },
 
-    replace : {
-      dist : {
-        options : {
-          usePrefix : false,
-          force : true,
-          patterns : [
-            {
-              match : /this\._super\(\s*([\w\.]+)\s*,\s*["'](\w+)["']\s*(,\s*)?/g,
-              replacement : '$1.prototype.$2.apply(this$3'
-            },
-          ],
+    replace: {
+      dist: {
+        options: {
+          usePrefix: false,
+          force: true,
+          patterns: [{
+            match: /this\._super\(\s*([\w\.]+)\s*,\s*["'](\w+)["']\s*(,\s*)?/g,
+            replacement: '$1.prototype.$2.apply(this$3'
+          }, ],
         },
-        files : [
-          {
-            src : [ 'build/js/app.js' ],
-            dest : 'build/js/app.js'
-          }
-        ]
+        files: [{
+          src: ['build/js/app.js'],
+          dest: 'build/js/app.js'
+        }]
       },
     },
 
@@ -114,10 +110,10 @@ module.exports = function(grunt) {
       master: {
         auth: {
           host: 'shelvar.com',
-	  port: 22,
-	  authKey: 'privateKey'
-	},
-	cache: 'sftpCacheProd.json',
+          port: 22,
+          authKey: 'privateKey'
+        },
+        cache: 'sftpCacheProd.json',
         src: '/Users/brinkmwj/ldjam/ld38-game/build',
         dest: "/var/www/html/ld38/play",
         exclusions: [],
@@ -129,9 +125,9 @@ module.exports = function(grunt) {
       dev: {
         auth: {
           host: 'shelvar.com',
-	  port: 22,
-	  authKey: 'privateKey'
-	},
+          port: 22,
+          authKey: 'privateKey'
+        },
         cache: 'sftpCacheDev.json',
         src: '/Users/brinkmwj/ldjam/ld38-game/build',
         dest: "/var/www/html/ld38/test",
@@ -148,9 +144,9 @@ module.exports = function(grunt) {
         src: ['**/*', '!js/app.js'],
         expand: true,
         dest: 'bin/' + (
-          process.platform === 'darwin'
-            ? 'Electron.app/Contents/Resources/'
-            : 'resources/'
+          process.platform === 'darwin' ?
+          'Electron.app/Contents/Resources/' :
+          'resources/'
         ) + 'app.asar'
       },
     },
@@ -164,25 +160,25 @@ module.exports = function(grunt) {
         files: [{
           src: ['data/bgm/**/*', 'data/sfx/**/*'],
           type: 'audio'
-        },{
+        }, {
           src: ['data/fnt/**/*.fnt'],
           type: 'binary'
-	},{
-	  src: ['data/fnt/**/*.png'],
-	  type: 'image'
-        },{
+        }, {
+          src: ['data/fnt/**/*.png'],
+          type: 'image'
+        }, {
           src: ['data/img/**/*.jpg'],
           type: 'image'
-        },{
+        }, {
           src: ['data/img/**/*.png'],
           type: 'image'
-        },{
+        }, {
           src: ['data/img/**/*.json'],
           type: 'json'
-        },{
+        }, {
           src: ['data/map/**/*.tmx', 'data/map/**/*.json'],
           type: 'tmx'
-        },{
+        }, {
           src: ['data/map/**/*.tsx'],
           type: 'tsx'
         }]

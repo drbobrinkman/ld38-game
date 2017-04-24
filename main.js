@@ -1,6 +1,6 @@
 const electron = require('electron');
-const app = electron.app;  // Module to control application life.
-const BrowserWindow = electron.BrowserWindow;  // Module to create native browser window.
+const app = electron.app; // Module to control application life.
+const BrowserWindow = electron.BrowserWindow; // Module to create native browser window.
 
 const path = require('path');
 const url = require('url');
@@ -17,7 +17,10 @@ app.on('window-all-closed', () => {
 
 function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({ width: 1920, height: 1080 });
+  mainWindow = new BrowserWindow({
+    width: 1920,
+    height: 1080
+  });
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
@@ -39,7 +42,7 @@ function createWindow() {
 // initialization and ready for creating browser windows.
 app.on('ready', createWindow);
 
-app.on('activate', function () {
+app.on('activate', function() {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
