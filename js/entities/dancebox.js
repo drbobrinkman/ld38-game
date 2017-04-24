@@ -801,8 +801,10 @@
 			<= radius){
 		    	//The player hit this target
 			whichTarget = targnum;
-			me.game.world.addChild(new game.Poof(e.gameX, e.gameY, 
-				    true),10);
+			var tmp = me.pool.pull("poof", e.gameX, e.gameY); 
+			if(!me.game.world.hasChild(tmp)) {
+		    	  me.game.world.addChild(tmp, 10);
+			}	
 			me.game.DB.curPhrase.targets.splice(whichTarget, 1);
 			break;
 		    }
@@ -819,8 +821,10 @@
 			    .distance(p) <= radius){
 			    //The player hit this target
 			    whichTarget = targnum;
-			    me.game.world.addChild(new game.Poof(e.gameX, e.gameY, 
-					true),10);
+			    var tmp = me.pool.pull("poof", e.gameX, e.gameY);
+			    if(!me.game.world.hasChild(tmp)) {
+		    	   	me.game.world.addChild(tmp, 10);
+			    }
 			    me.game.DB.nextPhrase.targets.splice(whichTarget, 1);
 			    break;
 			}
@@ -858,9 +862,11 @@
 	      }
 	      var countDiff = curCount - targ.count; //if countDiff > permittedSlop, we are done
 	      if(countDiff > targ.permittedSlop){
-		  me.game.world.addChild(new game.Poof(this.targets[targ.targetNum].x, 
-			      this.targets[targ.targetNum].y,
-			      false),10);
+		  var tmp = me.pool.pull("badpoof", this.targets[targ.targetNum].x, 
+			      this.targets[targ.targetNum].y);
+		  if(!me.game.world.hasChild(tmp)) {
+		      me.game.world.addChild(tmp, 10);
+		  }
 		  this.danceState = this.curPhrase.onFailure;
 
 		  me.audio.stop("Intro1", this.curTune);
@@ -892,9 +898,12 @@
 	      var targ = me.game.DB.curPhrase.targets[targnum];
 	      var countDiff = curCount - targ.count; //When it goes from < -1 to >= -1 we need to act
 	      if(countDiff >= -1 && countDiff - dt/me.game.DB.msPerBeat < -1){
-	      	me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
+	      	var tmp = me.pool.pull("foop", this.targets[targ.targetNum].x, 
 			    this.targets[targ.targetNum].y,
-			    (targ.permittedSlop - countDiff)*me.game.DB.msPerBeat),10);
+			    (targ.permittedSlop - countDiff)*me.game.DB.msPerBeat);
+		if(!me.game.world.hasChild(tmp)) {
+		    me.game.world.addChild(tmp, 10);
+		}
 	      }
 	  }
 	  //Also render the steps from the next stage of the song, assuming success
@@ -903,9 +912,12 @@
 	      var targ = me.game.DB.nextPhrase.targets[targnum];
 	      var countDiff = curCount - targ.count; //When it goes from < -1 to >= -1 we need to act
 	      if(countDiff >= -1 && countDiff - dt/me.game.DB.msPerBeat < -1){
-	      	me.game.world.addChild(new game.Foop(this.targets[targ.targetNum].x, 
+	      	var tmp = me.pool.pull("foop", this.targets[targ.targetNum].x, 
 			    this.targets[targ.targetNum].y,
-			    (targ.permittedSlop - countDiff)*me.game.DB.msPerBeat),10);
+			    (targ.permittedSlop - countDiff)*me.game.DB.msPerBeat);
+		if(!me.game.world.hasChild(tmp)) {
+		    me.game.world.addChild(tmp, 10);
+		}
 	      }
 	  }
 

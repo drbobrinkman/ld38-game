@@ -30,8 +30,9 @@ var game = {
         me.state.set(me.state.MENU, new game.TitleScreen());
         me.state.set(me.state.PLAY, new game.PlayScreen());
 
-        me.pool.register("poof", game.Poof);
-	me.pool.register("foop", game.Foop);
+        me.pool.register("poof", game.Poof, true);
+        me.pool.register("badpoof", game.BadPoof, true);
+	me.pool.register("foop", game.Foop, true);
 
         // Start the game.
         me.state.change(me.state.PLAY);

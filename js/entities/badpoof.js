@@ -1,27 +1,26 @@
 /**
- * Foop effect
+ * Poof effect
  */
 
- game.Foop = me.Sprite.extend({
+ game.BadPoof = me.Sprite.extend({
      /**
       * constructor
       */
-     init : function (x, y, lt) {
+     init : function (x, y) {
+	 // call the constructor
 	 if(!this.lifeTime){
-	 	// call the constructor
-	 	this._super(me.Sprite, 'init', [x, y , {image: "foop", framewidth: 256, 
-			frameheight: 256}]);
-	 	this.msPerBeat = 666.667; //in ms
-	 	this.addAnimation("foop", [0, 1, 2, 3, 4], this.msPerBeat/5);
-	 	this.addAnimation("wait", [4]);
+	 	this._super(me.Sprite, 'init', [x, y , {image: "badpoof", 
+			framewidth: 384, frameheight: 384}]);
+	 	this.lifeTime = 666.667; //in ms
+         	this.addAnimation("poof", [0, 1, 2, 3, 4, 5, 6], this.lifeTime/6);
 	 }
-	 this.lifeTime = lt;
-	 this.pos.x = x;
+  	 this.pos.x = x;
 	 this.pos.y = y;
-	 this.setOpacity(1.0);
 	 this.setAnimationFrame(0);
-	 this.setCurrentAnimation("foop", "wait");
+	 this.setCurrentAnimation("poof");
   	 this.createTime = me.timer.getTime();
+	 //me.game.world.addChild(this, 10);
+     	 this.setOpacity(1.0);
      },
 
      draw : function(renderer) {
